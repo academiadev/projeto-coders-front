@@ -18,7 +18,11 @@ Open the folder's project in prompt and run `npm install` to install all depende
 
 ## Materialize changes
 
-...
+Copy materialize.css in materialize_custom folder and paste in node_modules\materialize-css\dist\css
+
+Copy materialize.js in materialize_custom folder and paste in node_modules\materialize-css\dist\js
+
+Ps: These files contains some customs to run the project correctly.
 
 ## Development server
 
