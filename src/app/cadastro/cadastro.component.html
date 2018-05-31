@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="signin col-md-4 offset-md-4">
+    <h4 class="title">Cadastro Reembolso</h4>
+    <form class="form-default">
+      <div class="md-form">
+        <div class="input-field col s12">
+          <input id="nome" type="text" class="validate" ng-model="cadastro.nome" required autofocus>
+          <label for="nome">Nome</label>
+        </div>
+      </div>
+      <div class="md-form">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate" ng-model="cadastro.email" required>
+          <label for="email" data-error="E-mail inválido">E-mail</label>
+        </div>
+      </div>
+      <div class="md-form">
+        <div class="input-field col s12">
+          <input id="senha" type="password" class="validate" ng-model="cadastro.senha" required>
+          <label for="senha">Senha</label>
+        </div>
+      </div>
+      <div class="md-form">
+        <div class="input-field col s12">
+          <input id="senhaRepetida" type="password" class="validate" ng-model="cadastro.repetir" required>
+          <label for="senhaRepetida">Repetir senha</label>
+        </div>
+      </div>
+
+      <!--Radio buttons-->
+      <p>
+        <label>
+          <input class="with-gap" name="group1" type="radio" id="admin" ng-model="cadastro.modo" value="admin" checked />
+          <label for="admin">Criar uma nova empresa (Admin)</label>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input class="with-gap" name="group1" type="radio" id="user" ng-model="cadastro.modo" value="user"/>
+          <label for="user">Inserir código existente</label>
+        </label>
+      </p>
+      <!--\ Radio buttons -->
+      
+      <div cclass="md-form">
+        <div class="input-field col s12">
+          <input id="codigo" type="text" class="validate" ng-model="cadastro.codigo" required>
+          <label for="codigo">Código da Empresa</label>
+        </div>
+      </div>
+      <div class="button-login">
+          <button class="btn btn-lg btn-primary btn-block" type="submit">CADASTRAR</button>
+      </div>            
+    </form>
+  </div>
+</div>

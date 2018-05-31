@@ -1,0 +1,28 @@
+.signin {
+  width: 100%;
+  max-width: 550px;
+  padding: 0px;
+  margin: auto;
+  box-shadow: 0px 0px 10px 1px grey;
+  border-radius: 5px;
+  background: white;
+  margin-bottom: 20px;
+}
+.signin .title {
+  background: #2687e9;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  border-radius: 5px 5px 0px 0px;
+}
+.signin .form-default {
+  padding-top: 15px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 25px;
+}
+.form-default .redefinir-informacao {
+  font-size: 18px;
+  color: grey;
+  text-align: left;
+}

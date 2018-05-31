@@ -1,0 +1,116 @@
+<header>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <a class="brand-logo">Reembolso</a>        
+        <a href="showSidenav()" materialize="sideNav" [materializeParams]="sidenavParams" [materializeActions]="sidenavActions"
+         data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+         <ul class="right hide-on-med-and-down">
+          <li>
+            <button class="btn copiar-button" type="submit" id="codigoEmpresa" (click)="copiaCodigoEmpresa()" ngxClipboard [cbContent]="1010">
+              <img src="../../assets/group-7.svg" class="copy-button">
+              Cod: 1010
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Sidenav Structure -->
+<ul id="slide-out" class="side-nav">
+  <li><div class="user-view">
+    <a class="reembolso-perfil">Reembolso</a>
+    <a class="nome-perfil name">Felipe Fuerback</a>
+    <a class="email-perfil email">felipe@gmail.com</a>
+  </div></li>
+  <li><a [routerLink]="['/dashboardAdmin']"><i class="material-icons">home</i>Histórico e Solicitações</a></li>
+  <li><a [routerLink]="['/gastos']"><i class="material-icons">dashboard</i>Dashboard de Gastos</a></li>
+  <li><a [routerLink]="['/perfil']"><i class="material-icons">person</i>Perfil</a></li>
+  <li><div class="divider"></div></li>
+  <li><a [routerLink]="['/']"><i class="material-icons">exit_to_app</i>Sair</a></li>
+</ul>
+
+<main>
+  <div class="container">
+
+    <div class="div-admin-table">
+      <!--Table-->
+      <table class="table centered highlight">
+        <thead>
+          <tr>
+            <th>Reembolso</th>
+            <th>Status</th>
+            <th>Valor R$</th>
+            <th>Categoria</th>
+            <th>Usuário</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reembolso of reembolsos" (click)="openModal(reembolso)">
+            <td>{{reembolso.descricao}}</td>
+            <td><img src="../../assets/{{reembolso.status}}.svg" class="{{reembolso.status}}"></td>
+            <td>{{reembolso.valor}}</td>
+            <td>{{reembolso.categoria}}</td>
+            <td>{{reembolso.usuario}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!--Table-->
+    </div>
+  </div>
+
+  <!-- Modal Structure -->
+  <div class="modal fade" id="modalReembolso"  materialize="modal" [materializeParams]="modalParams" [materializeActions]="modalActions">
+    <div class="modal-content">
+      <div class="row">
+        <h4 class="col s12">Reembolso - {{usuario}}</h4>
+        <form name="criaReembolsoForm" id="formulario">
+          <div class="input-field col s12">
+            <input disabled id="nome" type="text" placeholder="" value="{{descricao}}">
+            <label class="active" for="nome">Nome do reembolso</label>
+          </div>
+
+          <div class="input-field col s6">
+            <input disabled id="categoria" type="text" placeholder="" value="{{categoria}}">
+            <label class="active" for="categoria">Categoria</label>
+          </div>
+
+          <div class="input-field col s6">
+            <input disabled type="text" placeholder="" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" value="{{data}}" />
+            <label for="data">Data</label>
+          </div>
+
+          <div class="input-field col s3">
+            <input disabled id="valor" placeholder="" type="text" value="{{valor}}">
+            <label for="valor">Valor</label>
+          </div>
+
+          <div class="file-field input-field col s12">
+            <div class="btn button-upload">
+              <span><i class="material-icons copy-button">cloud_download</i>DOWNLOAD</span>
+              <input name="foo" type="file" accept="image/jpeg,image/gif,image/png,application/pdf,image" />
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row modal-action-buttons">
+        <div class="col s3">
+            <button class="btn aprovar-button modal-action modal-close" (click)="setStatusReembolso('approved')">APROVAR</button>
+        </div>
+        <div class="col s3">
+            <button class="btn recusar-button modal-action modal-close" (click)="setStatusReembolso('canceled')">RECUSAR</button>
+        </div>
+        <div class="col l3 offset-l3">
+            <button class="btn cancelar-button modal-action modal-close" (click)="closeModal()">CANCELAR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

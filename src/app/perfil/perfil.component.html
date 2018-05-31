@@ -1,0 +1,55 @@
+<header>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <a class="brand-logo">Perfil</a>
+        
+        <a href="showSidenav()" materialize="sideNav" [materializeParams]="sidenavParams" [materializeActions]="sidenavActions"
+         data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Sidenav Structure -->
+<ul id="slide-out" class="side-nav">
+  <li><div class="user-view">
+    <a class="reembolso-perfil">Reembolso</a>
+    <a class="nome-perfil name">Felipe</a>
+    <a class="email-perfil email">felipe@gmail.com</a>
+  </div></li>
+  <li><a [routerLink]="['/dashboardUsuario']"><i class="material-icons">home</i>Histórico e Solicitações</a></li>
+  <li><a [routerLink]="['/gastos']"><i class="material-icons">dashboard</i>Dashboard de Gastos</a></li>
+  <li><a [routerLink]="['/perfil']"><i class="material-icons">person</i>Perfil</a></li>
+  <li><div class="divider"></div></li>
+  <li><a [routerLink]="['/']"><i class="material-icons">exit_to_app</i>Sair</a></li>
+</ul>
+
+<main>
+  <div class="container">
+    <div class="div-user-table col-md-4 offset-md-4">
+      <form class="form-redefinir">
+        <div class="md-form">
+          <div class="input-field col s12">
+            <input id="nome" type="text" required>
+            <label for="nome">Nome</label>
+          </div>
+        </div>
+        <div class="md-form">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" x-webkit-speech required>
+            <label for="email" data-error="E-mail inválido">E-mail</label>
+          </div>
+        </div>
+        <div class="md-form">
+          <div class="button-redefinir col s12">
+            <a class="btn modal-trigger" [routerLink]="['/redefinirSenha']">REDEFINIR SENHA</a>
+          </div>
+        </div>          
+      </form>
+      <div class="right-align atualizar-group">
+        <p><button (click)="atualizar()" class="atualizar-button">ATUALIZAR</button></p>
+      </div>
+    </div>      
+  </div>
+</main>

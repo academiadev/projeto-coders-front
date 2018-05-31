@@ -1,0 +1,46 @@
+.signin {
+  width: 100%;
+  max-width: 550px;
+  padding: 0px;
+  margin: auto;
+  box-shadow: 0px 0px 10px 1px grey;
+  border-radius: 5px;
+  background: white;
+  margin-bottom: 20px;
+}
+.signin .form-default {
+  padding-top: 15px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 25px;
+}
+.signin .button-login {
+  padding-top: 15px;
+}
+.signin .title {
+  background: #2687e9;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  border-radius: 5px 5px 0px 0px;
+}
+.signin .btn {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+}
+.signin .form-cadastrar .custom-control {
+  text-align: left;
+}
+.cadastrar-button{
+  color: #2687e9;
+  font-weight: 500;
+}
+.esqueci-button {
+  color: black;
+  font-weight: 500;
+}
+.login-buttons {
+  padding-left: 30px;
+  padding-right: 30px;
+}

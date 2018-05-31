@@ -1,0 +1,25 @@
+<header>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <a class="brand-logo">Reembolso</a>
+        
+        <a href="showSidenav()" materialize="sideNav" [materializeParams]="sidenavParams" [materializeActions]="sidenavActions"
+         data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Sidenav Structure -->
+<ul id="slide-out" class="side-nav">
+  <li><div class="user-view">
+    <a class="reembolso-perfil">Reembolso</a>
+    <a class="nome-perfil name">Felipe Fuerback</a>
+    <a class="email-perfil email">felipe@gmail.com</a>
+  </div></li>
+  <li><a href="#"><i class="material-icons">home</i>Histórico e Solicitações</a></li>
+  <li><a href="#"><i class="material-icons">dashboard</i>Dashboard de Gastos</a></li>
+  <li><a href="#"><i class="material-icons">person</i>Perfil</a></li>
+  <li><a href="#"><i class="material-icons">exit_to_app</i>Sair</a></li>
+</ul>

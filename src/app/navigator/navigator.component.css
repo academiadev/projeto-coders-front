@@ -1,0 +1,25 @@
+.brand-logo {
+  margin-left: 100px;
+}
+.reembolso-perfil {
+  width: 245px;
+  height: 32px;
+  font-size: 20px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-align: left;
+  color: white;
+}
+.nome-perfil {
+  color: white;
+  font-size: 15px;
+}
+.email-perfil {
+  color: white;
+}
+.user-view {
+  background-color: #2687e9;
+}
