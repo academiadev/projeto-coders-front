@@ -78,21 +78,25 @@ main {
   max-height: 90%;
 }
 .aprovar-button {
-  background-color: #00d9b8;
   margin-right: 20px;
-}
-.aprovar-button:focus {
-  background-color: #00d9b8; 
-}
-.aprovar-button:hover {
-  background-color: #00d9b8; 
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  background-color: white;
+  color: #00d9b8;
 }
 .recusar-button {
-  background-color: #f03f61;
+  margin-right: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  background-color: white;
+  color: #f03f61;
 }
-.recusar-button:focus {
-  background-color: #f03f61; 
-}
-.recusar-button:hover {
-  background-color: #f03f61; 
+.cancelar-button {
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  background-color: white;
+  color: #2687e9;
 }
