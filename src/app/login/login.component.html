@@ -1,21 +1,23 @@
 <div class="container">
   <div class="signin col-md-4 offset-md-4">
     <h3 class="title">Reembolso</h3>
-    <form class="form-default" #form="ngForm">
+    <form class="form-default"[formGroup]="loginForm">
       <div class="md-form">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate" name="email" ngModel x-webkit-speech required autofocus>
+          <input id="email" type="email" formControlName="email"
+          [class.valid]="email.valid" [class.invalid]="email.invalid && email.touched" x-webkit-speech autofocus>
           <label for="email">E-mail</label>
         </div>
       </div>
       <div class="md-form">
         <div class="input-field col s12">
-          <input id="senha" type="password" class="validate" name="senha" ngModel required>
+          <input id="senha" type="password" formControlName="senha"
+          [class.valid]="senha.valid" [class.invalid]="senha.invalid && senha.touched">
           <label for="senha">Senha</label>
         </div>
       </div>
       <div class="button-login">
-          <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="login(form)">LOGIN</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">LOGIN</button>
       </div>           
     </form>
     <div class="row login-buttons">

@@ -25,7 +25,8 @@
       </div>
       <div class="md-form">
         <div class="input-field col s12">
-          <input id="senhaRepetida" type="password" [class.valid]="confirmaSenha.valid" [class.invalid]="confirmaSenha.invalid && confirmaSenha.touched"
+          <input id="senhaRepetida" type="password" [class.valid]="confirmaSenha.valid" 
+          [class.invalid]="confirmaSenha.invalid && confirmaSenha.touched"
            autocomplete="off" formControlName="confirmaSenha">
           <label for="senhaRepetida">Repetir senha</label>
         </div>
