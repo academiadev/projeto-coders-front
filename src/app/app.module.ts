@@ -4,7 +4,7 @@ import { MaterializeModule } from 'angular2-materialize';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -47,7 +47,8 @@ import { LoginService } from './service/login.service';
     RouterModule.forRoot(ROUTES),
     FormsModule,
     TextMaskModule,
-    ClipboardModule
+    ClipboardModule,
+    ReactiveFormsModule
   ],
   providers: [ReembolsosService, LoginService],
   bootstrap: [AppComponent]
