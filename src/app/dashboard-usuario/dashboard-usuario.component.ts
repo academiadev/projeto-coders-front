@@ -68,6 +68,7 @@ export class DashboardUsuarioComponent implements OnInit {
   ngOnInit() {
     this.reembolsos = this.reembolsoService.reembolsos();
     this.categorias = this.reembolsoService.categorias();
+    this.reembolsoService.buscarReembolsos();
   }
 
 }

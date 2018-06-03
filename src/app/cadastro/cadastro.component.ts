@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from '../validators/inputs.validators';
 
 @Component({
   selector: 'ca-cadastro',
@@ -10,20 +11,16 @@ export class CadastroComponent implements OnInit {
 
   cadastroForm: FormGroup;
 
-  senhaPatetrn = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
-  numerPattern = /^[0-9]*$/;
-  emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
   constructor() { }
 
   ngOnInit() {
     this.cadastroForm = new FormGroup({
       nome: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
-      senha: new FormControl('', [Validators.required, Validators.pattern(this.senhaPatetrn)]),
-      confirmaSenha: new FormControl('', [Validators.required, Validators.pattern(this.senhaPatetrn)]),
+      email: new FormControl('', [Validators.required, CustomValidators.emailValidator]),
+      senha: new FormControl('', [Validators.required, CustomValidators.senhaValidator]),
+      confirmaSenha: new FormControl('', [Validators.required, CustomValidators.senhaValidator]),
       tipo: new FormControl('admin'),
-      codigoEmpresa: new FormControl('', [Validators.required, Validators.pattern(this.numerPattern)]),
+      codigoEmpresa: new FormControl('', [Validators.required, CustomValidators.numeroValidator]),
       nomeEmpresa: new FormControl('', [Validators.required, Validators.minLength(3)])
     });
   }

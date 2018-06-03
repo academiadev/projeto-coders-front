@@ -12,9 +12,6 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  senhaPatetrn = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
-  emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
   constructor(private loginService: LoginService) { }
 
   onSubmit(form: any) {
@@ -23,8 +20,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
-      senha: new FormControl('', [Validators.required, Validators.pattern(this.senhaPatetrn)])
+      email: new FormControl('', [Validators.required, CustomValidators.emailValidator]),
+      senha: new FormControl('', [Validators.required, CustomValidators.senhaValidator])
     });
   }
 

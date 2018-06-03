@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ReembolsosService {
-  constructor() {}
+
+  constructor(private http: HttpClient) {}
 
   reem: any[] = [
     {
@@ -102,6 +103,12 @@ export class ReembolsosService {
       categoria: form.value.categoria,
       usuario: 'Felipe F',
       data: form.value.data
+    });
+  }
+
+  buscarReembolsos() {
+    this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe((obs) => {
+      console.log(obs);
     });
   }
 }

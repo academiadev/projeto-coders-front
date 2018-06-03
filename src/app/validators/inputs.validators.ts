@@ -2,30 +2,34 @@ import {AbstractControl, ValidationErrors} from '@angular/forms';
 
 export class CustomValidators {
 
+    private static senhaPatetrn = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
+    private static emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    private static numeroPattern = /^[0-9]*$/;
+
     static emailValidator(control: AbstractControl): ValidationErrors | null {
         let valor: string = control.value;
-        if(valor.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/)){
-            return {emailValidator: true};
+        if(valor.match(CustomValidators.emailPattern)) {
+            return null
         }
 
-        return null;
+        return {emailValidator: true};
     }
 
     static senhaValidator(control: AbstractControl): ValidationErrors | null {
         let valor: string = control.value;
-        if(valor.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)) {
-            return {senhaValidator : true}
+        if(valor.match(CustomValidators.senhaPatetrn)) {
+            return null;
         }
 
-        return null;
+        return {senhaValidator : true};
     }
 
     static numeroValidator(control: AbstractControl): ValidationErrors | null {
         let valor: string = control.value;
-        if(valor.match(/^[0-9]*$/)) {
-            return {numeroValidator : true}
+        if(valor.match(CustomValidators.numeroPattern)) {
+            return null;
         }
 
-        return null;
+        return {numeroValidator : true};
     }
 }
