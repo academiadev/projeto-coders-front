@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CadastroService } from '../service/cadastro.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
 
@@ -11,7 +12,11 @@ export class CadastroComponent implements OnInit {
 
   cadastroForm: FormGroup;
 
-  constructor() { }
+  constructor(private cadastroService: CadastroService) { }
+
+  onSubmit(form: any) {
+    this.cadastroService.cadastrar(form);
+  }
 
   ngOnInit() {
     this.cadastroForm = new FormGroup({

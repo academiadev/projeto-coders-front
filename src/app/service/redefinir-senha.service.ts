@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
-export class LoginService {
+export class RedefinirSenhaService {
   constructor() {}
 
-  login(form: any) {
+  redefinir(form: any) {
     console.log(form);
   }
 }

@@ -9,12 +9,14 @@ import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { GastosComponent } from './gastos/gastos.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SenhaRedefinidaComponent } from './senha-redefinida/senha-redefinida.component';
 
 export const ROUTES: Routes = [
   {path: '', component: LoginComponent},
   {path: 'cadastro', component: CadastroComponent},
   {path: 'recuperarSenha', component: RecuperarSenhaComponent},
   {path: 'emailEnviado', component: EmailEnviadoComponent},
+  {path: 'senhaRedefinida', component: SenhaRedefinidaComponent},
   {path: 'redefinirSenha', component: RedefinirSenhaComponent},
   {path: 'perfil', component: PerfilComponent},
   {path: 'dashboardUsuario', component: DashboardUsuarioComponent},

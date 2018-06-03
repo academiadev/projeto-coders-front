@@ -1,21 +1,23 @@
 <div class="container">
   <div class="signin col-md-4 offset-md-4">
     <h4 class="title">Cadastre uma nova senha</h4>
-    <form class="form-default">
+    <form class="form-default" [formGroup]="redefinirForm" (ngSubmit)="onSubmit(redefinirForm.value)">
       <div class="md-form">
         <div class="input-field col s12">
-          <input id="senha" type="password" class="validate" ng-model="cadastro.senha" required autofocus>
+          <input id="senha" type="password" formControlName="senha"
+          [class.valid]="senha.valid" [class.invalid]="senha.invalid && senha.touched" autofocus>
           <label for="senha">Senha</label>
         </div>
       </div>
       <div class="md-form">
         <div class="input-field col s12">
-          <input id="senhaRepetida" type="password" class="validate" ng-model="cadastro.repetir" required>
+          <input id="senhaRepetida" type="password" formControlName="senhaRepetida"
+          [class.valid]="senhaRepetida.valid" [class.invalid]="senhaRepetida.invalid && senhaRepetida.touched">
           <label for="senhaRepetida">Repetir senha</label>
         </div>
       </div>
       <div class="button-login">
-        <p><a href="#" class="btn btn-lg btn-primary btn-block " id="redefinir">CONFIRMAR NOVA SENHA</a></p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">CONFIRMAR NOVA SENHA</button>
       </div>            
     </form>
   </div>

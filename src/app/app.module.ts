@@ -21,10 +21,15 @@ import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario
 import { NavigatorComponent } from './navigator/navigator.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { GastosComponent } from './gastos/gastos.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { SenhaRedefinidaComponent } from './senha-redefinida/senha-redefinida.component';
 
 import { ReembolsosService } from './service/reembolsos.service';
 import { LoginService } from './service/login.service';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { CadastroService } from './service/cadastro.service'
+import { RecupararSenhaService } from './service/recuparar-senha.service';
+import { RedefinirSenhaService } from './service/redefinir-senha.service';
+import { AtualizaPerfilService } from './service/atualiza-perfil.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     NavigatorComponent,
     DashboardAdminComponent,
     GastosComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SenhaRedefinidaComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +58,14 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ClipboardModule,
     ReactiveFormsModule
   ],
-  providers: [ReembolsosService, LoginService],
+  providers: [
+    ReembolsosService,
+    LoginService,
+    CadastroService,
+    RecupararSenhaService,
+    RedefinirSenhaService,
+    AtualizaPerfilService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

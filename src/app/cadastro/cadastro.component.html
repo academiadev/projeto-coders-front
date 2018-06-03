@@ -1,7 +1,7 @@
 <div class="container">
   <div class="signin col-md-4 offset-md-4">
     <h4 class="title">Cadastro Reembolso</h4>
-    <form class="form-default" [formGroup]="cadastroForm">
+    <form class="form-default" [formGroup]="cadastroForm" (ngSubmit)="onSubmit(cadastroForm.value)">
       <div class="md-form">
         <div class="input-field col s12">
           <input id="nome" type="text" [class.valid]="nome.valid" [class.invalid]="nome.invalid && nome.touched"

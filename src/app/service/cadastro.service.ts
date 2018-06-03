@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
-export class LoginService {
+export class CadastroService {
   constructor() {}
 
-  login(form: any) {
+  cadastrar(form: any) {
     console.log(form);
   }
 }

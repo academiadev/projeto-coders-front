@@ -1,18 +1,19 @@
 <div class="container">
   <div class="signin col-md-4 offset-md-4">
     <h3 class="title">Redifinir senha</h3>
-    <form class="form-default">
+    <form class="form-default" [formGroup]="recuperarForm" (ngSubmit)="onSubmit(recuperarForm.value)">
       <div>
         <p class="redefinir-informacao">Insira o seu e-mail cadastrado para redefinir sua senha</p>
       </div>
       <div class="md-form">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate" ng-model="redefinir.email" x-webkit-speech required autofocus>
-          <label for="email" data-error="E-mail inválido">E-mail</label>
+          <input id="email" type="email" class="validate" formControlName="email"
+          [class.valid]="email.valid" [class.invalid]="email.invalid && email.touched" x-webkit-speech autofocus>
+          <label for="email">E-mail</label>
         </div>
       </div>
       <div class="button-login">
-        <p><a [routerLink]="['/emailEnviado']" class="btn btn-lg btn-primary btn-block " id="redefinir">REDEFINIR SENHA</a></p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">REDEFINIR SENHA</button>
       </div>            
     </form>
   </div>
