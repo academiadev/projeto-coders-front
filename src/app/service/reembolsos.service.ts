@@ -97,13 +97,17 @@ export class ReembolsosService {
 
   setReembolso(form: any): void {
     this.reem.push({
-      descricao: form.value.nome,
+      descricao: form.nome,
       status: 'waiting',
-      valor: form.value.valor,
-      categoria: form.value.categoria,
+      valor: form.valor,
+      categoria: form.categoria,
       usuario: 'Felipe F',
-      data: form.value.data
+      data: form.data
     });
+  }
+
+  adicionaReembolso(form: any) {
+    console.log(form);
   }
 
   buscarReembolsos() {

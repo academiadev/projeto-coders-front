@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MaterializeDirective, MaterializeAction } from 'angular2-materialize';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { ReembolsosService } from '../service/reembolsos.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ca-dashboard-usuario',
@@ -10,12 +11,12 @@ import { ReembolsosService } from '../service/reembolsos.service';
 })
 export class DashboardUsuarioComponent implements OnInit {
 
+  dashBoardUserForm: FormGroup;
   sidenavActions: EventEmitter<any>;
   sidenavParams: any[];
   modalActions = new EventEmitter<string|MaterializeAction>();
 
   public datepicker = '';
-  public nome: string;
 
   public numberMask = createNumberMask({
     prefix: '',
@@ -46,14 +47,9 @@ export class DashboardUsuarioComponent implements OnInit {
     this.modalActions.emit( {action: 'modal', params: ['open']});
   }
 
-  closeModal(form: any) {
+  closeModal() {
     this.modalActions.emit({action: 'modal', params: ['close']});
-    this.limparModal(form);
-  }
-
-  addReembolso(form: any) {
-    this.reembolsoService.setReembolso(form);
-    this.limparModal(form);
+    this.limparModal(this.dashBoardUserForm);
   }
 
   limparModal(form: any) {
@@ -65,10 +61,27 @@ export class DashboardUsuarioComponent implements OnInit {
     this.sidenavActions.emit('sideNav');
   }
 
+  adicionaReembolso() {
+    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value);
+    this.reembolsoService.setReembolso(this.dashBoardUserForm.value);
+    this.limparModal(this.dashBoardUserForm);
+  }
+
   ngOnInit() {
     this.reembolsos = this.reembolsoService.reembolsos();
     this.categorias = this.reembolsoService.categorias();
-    this.reembolsoService.buscarReembolsos();
+
+    this.dashBoardUserForm = new FormGroup({
+      nome: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      categoria: new FormControl('', [Validators.required]),
+      data : new FormControl('', [Validators.required]),
+      valor : new FormControl('', [Validators.required])
+    });
   }
+
+  get nome(): any { return this.dashBoardUserForm.get('nome'); }
+  get categoria(): any { return this.dashBoardUserForm.get('categoria'); }
+  get data(): any { return this.dashBoardUserForm.get('data'); }
+  get valor(): any { return this.dashBoardUserForm.get('valor'); }
 
 }
