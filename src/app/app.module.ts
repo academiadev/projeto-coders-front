@@ -24,6 +24,7 @@ import { GastosComponent } from './gastos/gastos.component';
 
 import { ReembolsosService } from './service/reembolsos.service';
 import { LoginService } from './service/login.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { LoginService } from './service/login.service';
     DashboardUsuarioComponent,
     NavigatorComponent,
     DashboardAdminComponent,
-    GastosComponent
+    GastosComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

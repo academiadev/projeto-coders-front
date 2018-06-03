@@ -8,6 +8,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { DashboardUsuarioComponent } from './dashboard-usuario/dashboard-usuario.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { GastosComponent } from './gastos/gastos.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export const ROUTES: Routes = [
   {path: '', component: LoginComponent},
@@ -18,5 +19,7 @@ export const ROUTES: Routes = [
   {path: 'perfil', component: PerfilComponent},
   {path: 'dashboardUsuario', component: DashboardUsuarioComponent},
   {path: 'dashboardAdmin', component: DashboardAdminComponent},
-  {path: 'gastos', component: GastosComponent}
+  {path: 'gastos', component: GastosComponent},
+  {path: 'not-found', component: NotFoundComponent},
+  {path: '**', component: NotFoundComponent}
 ];
