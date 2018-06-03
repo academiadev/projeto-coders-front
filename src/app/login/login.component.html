@@ -1,7 +1,7 @@
 <div class="container">
   <div class="signin col-md-4 offset-md-4">
     <h3 class="title">Reembolso</h3>
-    <form class="form-default"[formGroup]="loginForm">
+    <form class="form-default"[formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
       <div class="md-form">
         <div class="input-field col s12">
           <input id="email" type="email" formControlName="email"

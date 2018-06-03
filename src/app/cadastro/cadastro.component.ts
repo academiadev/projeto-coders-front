@@ -10,15 +10,16 @@ export class CadastroComponent implements OnInit {
 
   cadastroForm: FormGroup;
 
-  senhaPatetrn = /^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)|(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])|(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9])|(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]))([A-Za-z\d@#$%^&£*\-_+=[\]{}|\\:',?/`~"();!]|\.(?!@)){8,16}$/;
+  senhaPatetrn = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
   numerPattern = /^[0-9]*$/;
+  emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
   constructor() { }
 
   ngOnInit() {
     this.cadastroForm = new FormGroup({
       nome: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
       senha: new FormControl('', [Validators.required, Validators.pattern(this.senhaPatetrn)]),
       confirmaSenha: new FormControl('', [Validators.required, Validators.pattern(this.senhaPatetrn)]),
       tipo: new FormControl('admin'),

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../service/login.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from '../validators/inputs.validators';
 
 @Component({
   selector: 'ca-login',
@@ -11,17 +12,19 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  senhaPatetrn = /^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)|(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])|(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9])|(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]))([A-Za-z\d@#$%^&£*\-_+=[\]{}|\\:',?/`~"();!]|\.(?!@)){8,16}$/;
+  senhaPatetrn = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
+  emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
   constructor(private loginService: LoginService) { }
 
-  login(form: any) {
-    this.loginService.login(form);
+  onSubmit(form: any) {
+    console.log(form);
+    this.loginService.login(this.loginForm.value);
   }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
       senha: new FormControl('', [Validators.required, Validators.pattern(this.senhaPatetrn)])
     });
   }
