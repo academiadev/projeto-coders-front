@@ -22,7 +22,7 @@ export class CadastroComponent implements OnInit {
       tipo: new FormControl('admin'),
       codigoEmpresa: new FormControl('', [Validators.required, CustomValidators.numeroValidator]),
       nomeEmpresa: new FormControl('', [Validators.required, Validators.minLength(3)])
-    });
+    }, CustomValidators.Match('senha', 'confirmaSenha') );
   }
 
   get nome(): any { return this.cadastroForm.get('nome'); }

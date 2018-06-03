@@ -9,7 +9,7 @@ export class CustomValidators {
     static emailValidator(control: AbstractControl): ValidationErrors | null {
         let valor: string = control.value;
         if(valor.match(CustomValidators.emailPattern)) {
-            return null
+            return null;
         }
 
         return {emailValidator: true};
@@ -31,5 +31,19 @@ export class CustomValidators {
         }
 
         return {numeroValidator : true};
+    }
+
+    static Match(firstControlName, secondControlName) {
+      return (AC: AbstractControl) => {
+        let firstControlValue = AC.get(firstControlName).value; // to get value in input tag
+        let secondControlValue = AC.get(secondControlName).value; // to get value in input tag
+        if (firstControlValue != secondControlValue) {
+          AC.get(secondControlName).setErrors({MatchFields: true});
+          console.log(false);
+        } else {
+          console.log(true);
+          return null
+        }
+      };
     }
 }
