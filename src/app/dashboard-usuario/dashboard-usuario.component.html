@@ -94,10 +94,10 @@
           <div class="file-field input-field col s12">
             <div class="btn button-upload">
               <span>ADICIONAR ARQUIVO</span>
-              <input name="foo" type="file" accept="image/jpeg,image/gif,image/png,application/pdf,image" />
+              <input type="file" accept="image/jpeg,image/png,application/pdf,image" (change)="onFileSelected($event)" formControlName="file"/>
             </div>
             <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
+              <input class="file-path" type="text">
             </div>
           </div>
         </form>

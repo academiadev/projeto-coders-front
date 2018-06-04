@@ -36,6 +36,8 @@ export class DashboardUsuarioComponent implements OnInit {
 
   reembolsos: any[];
 
+  fileSelected: File = null;
+
   constructor(private reembolsoService: ReembolsosService) {
     this.sidenavActions = new EventEmitter<any>();
     this.sidenavParams = [{
@@ -62,9 +64,13 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   adicionaReembolso() {
-    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value);
+    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value, this.fileSelected);
     this.reembolsoService.setReembolso(this.dashBoardUserForm.value);
     this.limparModal(this.dashBoardUserForm);
+  }
+
+  onFileSelected(event) {
+    this.fileSelected = <File>event.target.files[0];
   }
 
   ngOnInit() {
@@ -75,7 +81,8 @@ export class DashboardUsuarioComponent implements OnInit {
       nome: new FormControl('', [Validators.required, Validators.minLength(3)]),
       categoria: new FormControl('', [Validators.required]),
       data : new FormControl('', [Validators.required]),
-      valor : new FormControl('', [Validators.required])
+      valor : new FormControl('', [Validators.required]),
+      file : new FormControl('', [Validators.required])
     });
   }
 
@@ -83,5 +90,6 @@ export class DashboardUsuarioComponent implements OnInit {
   get categoria(): any { return this.dashBoardUserForm.get('categoria'); }
   get data(): any { return this.dashBoardUserForm.get('data'); }
   get valor(): any { return this.dashBoardUserForm.get('valor'); }
+  get file(): any { return this.dashBoardUserForm.get('file'); }
 
 }

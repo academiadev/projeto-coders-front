@@ -106,8 +106,9 @@ export class ReembolsosService {
     });
   }
 
-  adicionaReembolso(form: any) {
+  adicionaReembolso(form: any, file: any) {
     console.log(form);
+    console.log(file);
   }
 
   buscarReembolsos() {
