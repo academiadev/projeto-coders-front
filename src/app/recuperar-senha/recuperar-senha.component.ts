@@ -13,8 +13,8 @@ export class RecuperarSenhaComponent implements OnInit {
 
   recuperarForm: FormGroup;
 
-  constructor(private recupararService : RecupararSenhaService,
-              private router : Router) { }
+  constructor(private recupararService: RecupararSenhaService,
+              private router: Router) { }
 
   onSubmit(form: any) {
     this.recupararService.recuparar(form);

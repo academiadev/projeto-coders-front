@@ -30,6 +30,7 @@ import { CadastroService } from './service/cadastro.service'
 import { RecupararSenhaService } from './service/recuparar-senha.service';
 import { RedefinirSenhaService } from './service/redefinir-senha.service';
 import { AtualizaPerfilService } from './service/atualiza-perfil.service';
+import { AvisoComponent } from './aviso/aviso.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AtualizaPerfilService } from './service/atualiza-perfil.service';
     DashboardAdminComponent,
     GastosComponent,
     NotFoundComponent,
-    SenhaRedefinidaComponent
+    SenhaRedefinidaComponent,
+    AvisoComponent
   ],
   imports: [
     BrowserModule,
