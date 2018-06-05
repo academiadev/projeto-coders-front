@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ReembolsoDTO } from '../dto/reembolso-dto';
 
 @Injectable()
 export class ReembolsosService {
 
   constructor(private http: HttpClient) {}
 
-  reem: any[] = [
+  reem: ReembolsoDTO[] = [
     {
       descricao: 'Visita',
       status: 'waiting',

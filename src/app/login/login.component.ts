@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../service/login.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
+import { LoginDTO } from '../dto/login-dto';
 
 @Component({
   selector: 'ca-login',
@@ -14,8 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService) { }
 
-  onSubmit(form: any) {
-    this.loginService.login(form);
+  onSubmit(login: LoginDTO) {
+    this.loginService.login(login);
   }
 
   ngOnInit() {

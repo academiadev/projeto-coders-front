@@ -3,6 +3,7 @@ import { MaterializeDirective, MaterializeAction } from 'angular2-materialize';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { ReembolsosService } from '../service/reembolsos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ReembolsoDTO } from '../dto/reembolso-dto';
 
 @Component({
   selector: 'ca-dashboard-usuario',
@@ -34,7 +35,7 @@ export class DashboardUsuarioComponent implements OnInit {
 
   categorias: any[];
 
-  reembolsos: any[];
+  reembolsos: ReembolsoDTO[];
 
   fileSelected: File = null;
 
@@ -78,7 +79,7 @@ export class DashboardUsuarioComponent implements OnInit {
     this.categorias = this.reembolsoService.categorias();
 
     this.dashBoardUserForm = new FormGroup({
-      nome: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      descricao: new FormControl('', [Validators.required, Validators.minLength(3)]),
       categoria: new FormControl('', [Validators.required]),
       data : new FormControl('', [Validators.required]),
       valor : new FormControl('', [Validators.required]),
@@ -86,7 +87,7 @@ export class DashboardUsuarioComponent implements OnInit {
     });
   }
 
-  get nome(): any { return this.dashBoardUserForm.get('nome'); }
+  get descricao(): any { return this.dashBoardUserForm.get('descricao'); }
   get categoria(): any { return this.dashBoardUserForm.get('categoria'); }
   get data(): any { return this.dashBoardUserForm.get('data'); }
   get valor(): any { return this.dashBoardUserForm.get('valor'); }
