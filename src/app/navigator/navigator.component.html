@@ -2,10 +2,17 @@
   <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
-        <a class="brand-logo">Reembolso</a>
-        
+        <a class="brand-logo">{{titulo}}</a>        
         <a href="showSidenav()" materialize="sideNav" [materializeParams]="sidenavParams" [materializeActions]="sidenavActions"
          data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+         <ul class="right hide-on-med-and-down">
+          <li>
+            <button *ngIf="usuario.isAdmin == true" class="btn copiar-button" type="submit" id="codigoEmpresa" (click)="copiaCodigoEmpresa()" ngxClipboard [cbContent]="empresa.codigo">
+              <img src="../../assets/group-7.svg" class="copy-button">
+              Cod: {{empresa.codigo}}
+            </button>
+          </li>
+        </ul>
       </div>
     </nav>
   </div>
@@ -15,11 +22,12 @@
 <ul id="slide-out" class="side-nav">
   <li><div class="user-view">
     <a class="reembolso-perfil">Reembolso</a>
-    <a class="nome-perfil name">Felipe Fuerback</a>
-    <a class="email-perfil email">felipe@gmail.com</a>
+    <a class="nome-perfil name">{{usuario.nome}}</a>
+    <a class="email-perfil email">{{usuario.email}}</a>
   </div></li>
-  <li><a href="#"><i class="material-icons">home</i>Histórico e Solicitações</a></li>
-  <li><a href="#"><i class="material-icons">dashboard</i>Dashboard de Gastos</a></li>
-  <li><a href="#"><i class="material-icons">person</i>Perfil</a></li>
-  <li><a href="#"><i class="material-icons">exit_to_app</i>Sair</a></li>
+  <li><a [routerLink]="['/dashboardAdmin']"><i class="material-icons">home</i>Histórico e Solicitações</a></li>
+  <li><a [routerLink]="['/gastos']"><i class="material-icons">dashboard</i>Dashboard de Gastos</a></li>
+  <li><a [routerLink]="['/perfil']"><i class="material-icons">person</i>Perfil</a></li>
+  <li><div class="divider"></div></li>
+  <li><a [routerLink]="['/']"><i class="material-icons">exit_to_app</i>Sair</a></li>
 </ul>

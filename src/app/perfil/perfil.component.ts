@@ -4,6 +4,7 @@ import { toast } from 'angular2-materialize';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
 import { AtualizaPerfilService } from '../service/atualiza-perfil.service';
+import { LoginService } from '../service/login.service';
 
 @Component({
   selector: 'ca-perfil',
@@ -15,8 +16,9 @@ export class PerfilComponent implements OnInit {
   perfilForm: FormGroup;
   sidenavActions: EventEmitter<any>;
   sidenavParams: any[];
+  usuario: any;
 
-  constructor(private ataualizaPerfilService : AtualizaPerfilService) {
+  constructor(private ataualizaPerfilService: AtualizaPerfilService, private loginService: LoginService) {
     this.sidenavActions = new EventEmitter<any>();
     this.sidenavParams = [{
       closeOnClick: true
@@ -34,9 +36,11 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usuario = this.loginService.usuario;
+
     this.perfilForm = new FormGroup({
-      email: new FormControl('', [Validators.required, CustomValidators.emailValidator]),
-      nome: new FormControl('', [Validators.required, Validators.minLength(3)])
+      email: new FormControl(this.usuario.email, [Validators.required, CustomValidators.emailValidator]),
+      nome: new FormControl(this.usuario.nome, [Validators.required, Validators.minLength(3)])
     });
   }
 

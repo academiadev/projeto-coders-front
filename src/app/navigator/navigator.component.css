@@ -23,3 +23,25 @@
 .user-view {
   background-color: #2687e9;
 }
+.copiar-button {
+  background-color: #fff;
+  margin-right: 20px;
+  color: black;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+}
+.copiar-button:focus {
+  background-color: #fff; 
+}
+.copiar-button:hover {
+  background-color: #fff; 
+}
+.copy-button {
+  display:inline-block;
+  text-rendering:auto;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  vertical-align:middle;
+  padding-right: 10px;
+}
