@@ -88,6 +88,20 @@ main {
   border: none;
   background-color: #f5f5f5;
 }
+.editar-button {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2687e9;
+  border: none;
+  background-color: #f5f5f5;
+}
+.excluir-button {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  border: none;
+  background-color: #f5f5f5;
+}
 .cancelar-button {
   font-size: 16px;
   font-weight: 500;

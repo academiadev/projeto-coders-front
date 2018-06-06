@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let reembolso of reembolsos" (click)="openModal()">
+          <tr *ngFor="let reembolso of reembolsos" (click)="openModalEdit(reembolso)">
             <td>{{reembolso.descricao}}</td>
             <td><img src="../../assets/{{reembolso.status}}.svg" class="{{reembolso.status}}"></td>
             <td>{{reembolso.valor}}</td>
@@ -81,10 +81,74 @@
     <div class="modal-footer">
       <div class="row modal-action-buttons">
         <div class="col l3 offset-l3">
-            <p><button class="cancelar-button modal-action modal-close" (click)="closeModal()">CANCELAR</button></p>
+          <p><button id="cadastrar" class="solicitar-button modal-action modal-close" [disabled]="!dashBoardUserForm.valid" (click)="adicionaReembolso()" >SOLICITAR</button></p>
         </div>
         <div class="col l3 offset-l3">
-          <p><button id="cadastrar" class="solicitar-button modal-action modal-close" [disabled]="!dashBoardUserForm.valid" (click)="adicionaReembolso()" >SOLICITAR</button></p>
+          <p><button class="cancelar-button modal-action modal-close" (click)="closeModal()">CANCELAR</button></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Structure -->
+  <div class="modal fade" id="modalReembolsoEdit"  materialize="modal" [materializeParams]="modalParams" [materializeActions]="modalActionsEdit">
+    <div class="modal-content">
+      <div class="row">
+        <h4 class="col s12">Editar Reembolso</h4>
+        <p class="col s12">Preencha as informações abaixo para solicitar reembolso:</p>  
+
+        <form name="criaReembolsoForm" id="formulario" [formGroup]="dashBoardUserForm" (ngSubmit)="onSubmit(dashBoardUserForm.value)">
+          <div class="input-field col s12">
+            <input id="descricao" type="text" name="descricao" formControlName="descricao" placeholder=""
+            [class.valid]="descricao.valid" [class.invalid]="descricao.invalid && descricao.touched" autocomplete="off">
+            <label for="descricao">Nome do reembolso</label>
+          </div>
+
+          <div class="input-field col s6">
+            <select materialize="material_select" [materializeSelectOptions]="selectOptions" name="categoria" formControlName="categoria">
+              <option value="" disabled selected>Selecione uma categoria</option>
+              <option *ngFor="let categoria of categorias">{{categoria.nome}}</option>
+            </select>
+            <label for="select">Categoria</label>
+          </div>
+
+          <div class="input-field col s6">
+           <input type="text" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" placeholder="" name="data" formControlName="data"/>
+           <label for="data">Data</label>
+          </div>
+
+          <div class="row">
+              <div class="col s12">
+                R$
+                <div class="input-field inline">
+                  <input [textMask]="{mask: numberMask}" type="text" name="valor" autocomplete="off" placeholder="" formControlName="valor"/>
+                  <label for="valor">Valor</label>
+                </div>
+              </div>
+            </div>
+
+          <div class="file-field input-field col s12">
+            <div class="btn button-upload">
+              <span>ADICIONAR ARQUIVO</span>
+              <input type="file" accept="image/jpeg,image/png,application/pdf,image" (change)="onFileSelected($event)" formControlName="file"/>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path" type="text">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row modal-action-buttons">
+        <div class="col s3">
+            <button class="editar-button modal-action modal-close" (click)="editarReembolso()" >EDITAR</button>
+        </div>
+        <div class="col s3">
+            <button class="excluir-button modal-action modal-close" (click)="excluirReembolso()" >EXCLUIR</button>
+        </div>
+        <div class="col l3 offset-l3">
+            <button class="cancelar-button modal-action modal-close" (click)="closeModalEdit()">CANCELAR</button>
         </div>
       </div>
     </div>

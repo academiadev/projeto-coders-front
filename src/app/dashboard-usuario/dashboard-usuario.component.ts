@@ -16,6 +16,7 @@ export class DashboardUsuarioComponent implements OnInit {
   sidenavActions: EventEmitter<any>;
   sidenavParams: any[];
   modalActions = new EventEmitter<string|MaterializeAction>();
+  modalActionsEdit = new EventEmitter<string|MaterializeAction>();
 
   public datepicker = '';
 
@@ -39,6 +40,8 @@ export class DashboardUsuarioComponent implements OnInit {
 
   fileSelected: File = null;
 
+  reembolsoSelecionado: any;
+
   constructor(private reembolsoService: ReembolsosService) {
     this.sidenavActions = new EventEmitter<any>();
     this.sidenavParams = [{
@@ -53,6 +56,24 @@ export class DashboardUsuarioComponent implements OnInit {
   closeModal() {
     this.modalActions.emit({action: 'modal', params: ['close']});
     this.limparModal(this.dashBoardUserForm);
+  }
+
+  openModalEdit(reembo: any) {
+    if (reembo.status === 'waiting') {
+      this.reembolsoSelecionado = reembo;
+      this.dashBoardUserForm.patchValue({
+        descricao: reembo.descricao,
+        categoria: reembo.categoria,
+        data: reembo.data,
+        valor: reembo.valor,
+        file: reembo.file
+      });
+      this.modalActionsEdit.emit( {action: 'modal', params: ['open']});
+    }
+  }
+
+  closeModalEdit() {
+    this.modalActionsEdit.emit({action: 'modal', params: ['close']});
   }
 
   limparModal(form: any) {
@@ -70,6 +91,16 @@ export class DashboardUsuarioComponent implements OnInit {
     this.limparModal(this.dashBoardUserForm);
   }
 
+  excluirReembolso() {
+    if (confirm('Você deseja excluir o item: ' + this.reembolsoSelecionado.descricao + '?')) {
+      this.reembolsoService.excluirReembolso(this.reembolsoSelecionado);
+    }
+  }
+
+  editarReembolso() {
+    this.reembolsoService.editarReembolso(this.dashBoardUserForm, this.reembolsoSelecionado);
+  }
+
   onFileSelected(event) {
     this.fileSelected = <File>event.target.files[0];
   }
@@ -83,7 +114,8 @@ export class DashboardUsuarioComponent implements OnInit {
       categoria: new FormControl('', [Validators.required]),
       data : new FormControl('', [Validators.required]),
       valor : new FormControl('', [Validators.required]),
-      file : new FormControl('', [Validators.required])
+      file : new FormControl('', [Validators.required]),
+      status: new FormControl('', [Validators.required])
     });
   }
 

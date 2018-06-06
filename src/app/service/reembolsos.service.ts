@@ -107,6 +107,21 @@ export class ReembolsosService {
     });
   }
 
+  excluirReembolso(form: any) {
+    const index = this.reem.indexOf(form, 0);
+    if (index > -1) {
+      this.reem.splice(index, 1);
+    }
+  }
+
+  editarReembolso(novoForm: any, antigoForm: any) {
+    const index = this.reem.indexOf(antigoForm, 0);
+    if (index > -1) {
+      novoForm.value.status = 'waiting';
+      this.reem[index] = novoForm.value;
+    }
+  }
+
   adicionaReembolso(form: any, file: any) {
     console.log(form);
     console.log(file);
