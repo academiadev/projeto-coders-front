@@ -15,7 +15,7 @@ export class CadastroComponent implements OnInit {
   constructor(private cadastroService: CadastroService) { }
 
   onSubmit(form: any) {
-    this.cadastroService.cadastrar(form);
+    this.cadastroService.cadastrarUsuario(form).subscribe(res => console.log(res));
   }
 
   ngOnInit() {
