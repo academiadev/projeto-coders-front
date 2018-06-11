@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../service/login.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
 import { LoginDTO } from '../dto/login-dto';
+import { AuthService } from './../service/auth.service';
+import { TokenDTO } from '../dto/token-dto';
+import { environment } from './../../environments/environment';
+import { Router, ActivatedRoute } from '@angular/router';
+import { BadCredentialsError } from './../commons/bad-credentials';
 
 @Component({
   selector: 'ca-login',
@@ -13,10 +17,31 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private loginService: LoginService) { }
+  constructor(private authService: AuthService,
+              private route: ActivatedRoute,
+              private router: Router,
+  ) { }
 
   onSubmit(login: LoginDTO) {
-    this.loginService.login(login);
+    this.authService.login(login).subscribe((token: TokenDTO) => {
+      localStorage.setItem(environment.tokenName, token.access_token);
+
+      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+      this.router.navigate([returnUrl || '/login']);
+
+      this.authService.refresh().subscribe(e => {
+        console.log(e);
+      });
+
+    },
+      (e) => {
+        console.log('erro -> ' + e);
+        if (e instanceof BadCredentialsError) {
+          this.senha.setErrors({ 'invalido': true });
+        } else {
+          throw e;
+        }
+      });
   }
 
   ngOnInit() {

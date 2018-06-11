@@ -3,7 +3,23 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  backEndUrl: 'http://localhost:8080',
+  tokenName: 'access_token',
+  urls: {
+    auth: {
+      login: 'http://localhost:8080/login',
+      refresh: 'http://localhost:8080/refresh',
+    },
+    empresa: {
+      url: 'http://localhost:8080/empresa'
+    },
+    usuario: {
+      cadastro: 'http://localhost:8080/cadastrarUsuario',
+      listar: 'http://localhost:8080/listarUsuarioEmpresa',
+      editar: 'http://localhost:8080/editarUsuario'
+    }
+  }
 };
 
 /*

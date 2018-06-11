@@ -11,17 +11,21 @@ import { GastosComponent } from './gastos/gastos.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SenhaRedefinidaComponent } from './senha-redefinida/senha-redefinida.component';
 
+import { LoginGuard } from './service/login-guard.service';
+import { AuthGuard } from './service/auth-guard.service';
+
 export const ROUTES: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'cadastro', component: CadastroComponent},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
+  {path: 'cadastro', component: CadastroComponent, canActivate: [LoginGuard]},
   {path: 'recuperarSenha', component: RecuperarSenhaComponent},
   {path: 'emailEnviado', component: EmailEnviadoComponent},
-  {path: 'senhaRedefinida', component: SenhaRedefinidaComponent},
-  {path: 'redefinirSenha', component: RedefinirSenhaComponent},
-  {path: 'perfil', component: PerfilComponent},
-  {path: 'dashboardUsuario', component: DashboardUsuarioComponent},
-  {path: 'dashboardAdmin', component: DashboardAdminComponent},
-  {path: 'gastos', component: GastosComponent},
+  {path: 'senhaRedefinida', component: SenhaRedefinidaComponent, canActivate: [AuthGuard]},
+  {path: 'redefinirSenha', component: RedefinirSenhaComponent, canActivate: [AuthGuard]},
+  {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
+  {path: 'dashboardUsuario', component: DashboardUsuarioComponent, canActivate: [AuthGuard]},
+  {path: 'dashboardAdmin', component: DashboardAdminComponent, canActivate: [AuthGuard]},
+  {path: 'gastos', component: GastosComponent, canActivate: [AuthGuard]},
   {path: 'not-found', component: NotFoundComponent},
   {path: '**', component: NotFoundComponent}
 ];

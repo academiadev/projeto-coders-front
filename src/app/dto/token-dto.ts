@@ -1,8 +1,8 @@
 export class TokenDTO {
 
   constructor(
-    private access_token: string,
-    private expires_in
+    public access_token: string,
+    public expires_in: number
   ) { }
 
 }
