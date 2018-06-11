@@ -1,6 +1,6 @@
 .signin {
-  width: 100%;
-  max-width: 550px;
+  width: 70%;
+  max-width: 500px;
   padding: 0px;
   margin: auto;
   box-shadow: 0px 0px 10px 1px grey;
@@ -43,4 +43,8 @@
 .login-buttons {
   padding-left: 30px;
   padding-right: 30px;
+}
+.alert-message {
+  color: red;
+  font-size: 14px;
 }

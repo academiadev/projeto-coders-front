@@ -28,7 +28,6 @@ export class AuthService extends DataService {
    * @url http://localhost:8080/login
    */
   login(login: LoginDTO): Observable<TokenDTO> {
-    console.log(login);
     return this.http.post(environment.urls.auth.login, login).pipe(
       map(res => <TokenDTO>res),
       catchError(this.handleError)
@@ -54,7 +53,7 @@ export class AuthService extends DataService {
   isLoggedIn(): boolean {
     const token = localStorage.getItem(environment.tokenName);
 
-    if (!token) {
+    if (token === 'undefined' || !token) {
       return false;
     }
 

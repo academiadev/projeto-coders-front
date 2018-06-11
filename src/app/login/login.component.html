@@ -17,8 +17,11 @@
         </div>
       </div>
       <div class="button-login">
-          <button [disabled]="loginForm.invalid || loginForm.pending" class="btn btn-lg btn-primary btn-block" type="submit">LOGIN</button>
-      </div>           
+        <button [disabled]="loginForm.invalid || loginForm.pending" class="btn btn-lg btn-primary btn-block" type="submit">LOGIN</button>
+      </div>
+      <div class="alert-message" *ngIf="!autenticacaoValida">
+        <p>Usuário ou senha inválidos</p>
+      </div>       
     </form>
     <div class="row login-buttons">
       <div class="col l6 left-align">

@@ -1,7 +1,8 @@
 import { Component, OnInit, EventEmitter, Input } from '@angular/core';
-import { MaterializeDirective } from 'angular2-materialize';
 import { LoginService } from '../service/login.service';
 import { toast } from 'angular2-materialize';
+import { AuthService } from './../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ca-navigator',
@@ -16,7 +17,11 @@ export class NavigatorComponent implements OnInit {
   sidenavActions: EventEmitter<any>;
   sidenavParams: any[];
 
-  constructor(private loginService: LoginService) {
+  constructor(
+    private loginService: LoginService,
+    public authService: AuthService,
+    private router: Router
+  ) {
     this.sidenavActions = new EventEmitter<any>();
     this.sidenavParams = [{
       closeOnClick: true
@@ -35,6 +40,11 @@ export class NavigatorComponent implements OnInit {
   ngOnInit() {
     this.usuario = this.loginService.usuario;
     this.empresa = this.loginService.empresa;
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

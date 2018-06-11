@@ -14,10 +14,10 @@ export class LoginGuard implements CanActivate {
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const isUserLoggedIn = this.authService.isLoggedIn();
+     const isUserLoggedIn = this.authService.isLoggedIn();
 
     if (isUserLoggedIn) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/dashboardUsuario']);
       return false;
     }
 

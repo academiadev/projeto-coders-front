@@ -1,8 +1,8 @@
 export class TokenDTO {
 
   constructor(
-    public access_token: string,
-    public expires_in: number
+    public accessToken: string,
+    public expiresIn: number
   ) { }
 
 }

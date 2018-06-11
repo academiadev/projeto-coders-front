@@ -7,6 +7,7 @@ import { TokenDTO } from '../dto/token-dto';
 import { environment } from './../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BadCredentialsError } from './../commons/bad-credentials';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'ca-login',
@@ -16,28 +17,31 @@ import { BadCredentialsError } from './../commons/bad-credentials';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  autenticacaoValida: Boolean = true;
 
   constructor(private authService: AuthService,
               private route: ActivatedRoute,
               private router: Router,
+              private jwtHelper: JwtHelperService
   ) { }
 
   onSubmit(login: LoginDTO) {
     this.authService.login(login).subscribe((token: TokenDTO) => {
-      localStorage.setItem(environment.tokenName, token.access_token);
+      localStorage.setItem(environment.tokenName, token.accessToken);
+      console.log(token.accessToken);
+      const decodedToken = this.jwtHelper.decodeToken(token.accessToken);
+      console.log(decodedToken);
 
+      /* Onde é possível retornar uma url válida pelo queryParamMap? */
       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-      this.router.navigate([returnUrl || '/login']);
+      this.router.navigate([returnUrl || '/dashboardUsuario']);
 
-      this.authService.refresh().subscribe(e => {
-        console.log(e);
-      });
-
+      /* Necessário o refreh aqui? onde é necessário? */
+      this.authService.refresh().subscribe(e => { });
     },
       (e) => {
-        console.log('erro -> ' + e);
         if (e instanceof BadCredentialsError) {
-          this.senha.setErrors({ 'invalido': true });
+          this.autenticacaoValida = false;
         } else {
           throw e;
         }

@@ -7,8 +7,8 @@ export class CustomValidators {
     private static numeroPattern = /^[0-9]*$/;
 
     static emailValidator(control: AbstractControl): ValidationErrors | null {
-        let valor: string = control.value;
-        if(valor.match(CustomValidators.emailPattern)) {
+        const valor: string = control.value;
+        if (valor.match(CustomValidators.emailPattern)) {
             return null;
         }
 
@@ -16,8 +16,8 @@ export class CustomValidators {
     }
 
     static senhaValidator(control: AbstractControl): ValidationErrors | null {
-        let valor: string = control.value;
-        if(valor.match(CustomValidators.senhaPatetrn)) {
+        const valor: string = control.value;
+        if (valor.match(CustomValidators.senhaPatetrn)) {
             return null;
         }
 
@@ -25,8 +25,8 @@ export class CustomValidators {
     }
 
     static numeroValidator(control: AbstractControl): ValidationErrors | null {
-        let valor: string = control.value;
-        if(valor.match(CustomValidators.numeroPattern)) {
+        const valor: string = control.value;
+        if (valor.match(CustomValidators.numeroPattern)) {
             return null;
         }
 
@@ -35,12 +35,12 @@ export class CustomValidators {
 
     static Match(firstControlName, secondControlName) {
       return (control: AbstractControl) => {
-        let firstControlValue = control.get(firstControlName).value;
-        let secondControlValue = control.get(secondControlName).value;
-        if (firstControlValue != secondControlValue) {
+        const firstControlValue = control.get(firstControlName).value;
+        const secondControlValue = control.get(secondControlName).value;
+        if (firstControlValue !== secondControlValue) {
             control.get(secondControlName).setErrors({MatchFields: true});
         } else {
-          return null
+          return null;
         }
       };
     }
