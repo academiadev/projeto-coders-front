@@ -17,13 +17,15 @@ export class UsuarioService extends DataService {
       super(environment.backEndUrl, http);
   }
 
+  usuario: UsuarioDTO;
+
   /**
    *
    * @url http://localhost:8080/whoami
    */
   whoami(): Observable<UsuarioDTO> {
     return this.http.get(environment.urls.usuario.whoami, this.getHeaders()).pipe(
-      map(res => <UsuarioDTO>res)
+      map(res => this.usuario = <UsuarioDTO>res)
     );
   }
 }

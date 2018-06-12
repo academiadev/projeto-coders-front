@@ -66,7 +66,7 @@ export class DashboardUsuarioComponent implements OnInit {
         categoria: reembo.categoria,
         data: reembo.data,
         valor: reembo.valor,
-        file: reembo.file
+        arquivoPath: reembo.arquivoPath
       });
       this.modalActionsEdit.emit( {action: 'modal', params: ['open']});
     }
@@ -74,6 +74,7 @@ export class DashboardUsuarioComponent implements OnInit {
 
   closeModalEdit() {
     this.modalActionsEdit.emit({action: 'modal', params: ['close']});
+    this.limparModal(this.dashBoardUserForm);
   }
 
   limparModal(form: any) {
@@ -86,7 +87,9 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   adicionaReembolso() {
-    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value, this.fileSelected);
+    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value, this.fileSelected).subscribe(res => {
+      console.log(res);
+    });
     this.reembolsoService.setReembolso(this.dashBoardUserForm.value);
     this.limparModal(this.dashBoardUserForm);
   }
@@ -106,6 +109,11 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.reembolsoService.buscarReembolsos().subscribe((res) => {
+      // this.reembolsos = <ReembolsoDTO[]>res;
+      //   console.log(this.reembolsos);
+      // });
+
     this.reembolsos = this.reembolsoService.reembolsos();
     this.categorias = this.reembolsoService.categorias();
 
@@ -114,8 +122,8 @@ export class DashboardUsuarioComponent implements OnInit {
       categoria: new FormControl('', [Validators.required]),
       data : new FormControl('', [Validators.required]),
       valor : new FormControl('', [Validators.required]),
-      file : new FormControl('', [Validators.required]),
-      status: new FormControl('', [Validators.required])
+      arquivoPath : new FormControl('', [Validators.required])
+      // status: new FormControl('', [Validators.required])
     });
   }
 
@@ -123,6 +131,6 @@ export class DashboardUsuarioComponent implements OnInit {
   get categoria(): any { return this.dashBoardUserForm.get('categoria'); }
   get data(): any { return this.dashBoardUserForm.get('data'); }
   get valor(): any { return this.dashBoardUserForm.get('valor'); }
-  get file(): any { return this.dashBoardUserForm.get('file'); }
+  get arquivoPath(): any { return this.dashBoardUserForm.get('arquivoPath'); }
 
 }

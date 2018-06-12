@@ -1,44 +1,64 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ReembolsoDTO } from '../dto/reembolso-dto';
+import { UsuarioService } from './usuario.service';
+import { environment } from './../../environments/environment';
+import { DataService } from './data.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable()
-export class ReembolsosService {
+export class ReembolsosService extends DataService {
 
-  constructor(private http: HttpClient) {}
+  constructor(http: HttpClient,
+              private usuarioService: UsuarioService
+  ) {
+    super(environment.backEndUrl, http);
+  }
 
   reem: ReembolsoDTO[] = [
     {
+      id: null,
       descricao: 'Visita',
       status: 'waiting',
       valor: '312,00',
       categoria: 'Outros',
-      usuario: 'Felipe',
-      data: '10/10/2008'
+      nomeUsuario: 'Felipe',
+      data: '10/10/2008',
+      idUsuario: null,
+      arquivoPath: null
     },
     {
+      id: null,
       descricao: 'Almoço',
       status: 'approved',
       valor: '215,00',
       categoria: 'Alimentação',
-      usuario: 'Willian',
-      data: '10/10/2008'
+      nomeUsuario: 'Willian',
+      data: '10/10/2008',
+      idUsuario: null,
+      arquivoPath: null
     },
     {
+      id: null,
       descricao: 'Hotel',
       status: 'canceled',
       valor: '312,00',
       categoria: 'Hospedagem',
-      usuario: 'Kauan',
-      data: '10/10/2008'
+      nomeUsuario: 'Kauan',
+      data: '10/10/2008',
+      idUsuario: null,
+      arquivoPath: null
     },
     {
+      id: null,
       descricao: 'Uber',
       status: 'canceled',
       valor: '40,00',
       categoria: 'Transporte',
-      usuario: 'Bruno',
-      data: '10/10/2008'
+      nomeUsuario: 'Bruno',
+      data: '10/10/2008',
+      idUsuario: null,
+      arquivoPath: null
     }
   ];
 
@@ -98,12 +118,15 @@ export class ReembolsosService {
 
   setReembolso(form: any): void {
     this.reem.push({
+      id: null,
       descricao: form.nome,
-      status: 'waiting',
-      valor: form.valor,
       categoria: form.categoria,
-      usuario: 'Felipe F',
-      data: form.data
+      data: form.data,
+      status: 'waiting',
+      idUsuario: null,
+      nomeUsuario: 'Felipe F',
+      arquivoPath: '',
+      valor: form.valor
     });
   }
 
@@ -122,14 +145,19 @@ export class ReembolsosService {
     }
   }
 
-  adicionaReembolso(form: any, file: any) {
-    console.log(form);
+  adicionaReembolso(reembolso: ReembolsoDTO, file: any): Observable<any> {
+    reembolso.id = null;
+    reembolso.idUsuario = this.usuarioService.usuario.id;
+    reembolso.status = '';
+    console.log(reembolso);
     console.log(file);
+    return this.http.post(environment.urls.reembolso.cadastrar, reembolso, this.getHeaders());
   }
 
-  buscarReembolsos() {
-    this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe((obs) => {
-      console.log(obs);
-    });
+  buscarReembolsos(): Observable<any> {
+    /* Falta passar os parametros */
+    return this.http.get(environment.urls.reembolso.buscarReembolsosUsuario,
+      this.getHeaders()
+    );
   }
 }

@@ -5,6 +5,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
 import { AtualizaPerfilService } from '../service/atualiza-perfil.service';
 import { LoginService } from '../service/login.service';
+import { UsuarioService } from '../service/usuario.service';
+import { UsuarioDTO } from '../dto/usuario-dto';
 
 @Component({
   selector: 'ca-perfil',
@@ -16,9 +18,13 @@ export class PerfilComponent implements OnInit {
   perfilForm: FormGroup;
   sidenavActions: EventEmitter<any>;
   sidenavParams: any[];
-  usuario: any;
+  usuario: UsuarioDTO;
 
-  constructor(private ataualizaPerfilService: AtualizaPerfilService, private loginService: LoginService) {
+  constructor(
+    private ataualizaPerfilService: AtualizaPerfilService,
+    private loginService: LoginService,
+    private usuarioService: UsuarioService
+  ) {
     this.sidenavActions = new EventEmitter<any>();
     this.sidenavParams = [{
       closeOnClick: true
@@ -36,7 +42,7 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.usuario = this.loginService.usuario;
+    this.usuario = this.usuarioService.usuario;
 
     this.perfilForm = new FormGroup({
       email: new FormControl(this.usuario.email, [Validators.required, CustomValidators.emailValidator]),

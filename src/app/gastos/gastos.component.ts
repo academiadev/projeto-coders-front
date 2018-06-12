@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { MaterializeDirective } from 'angular2-materialize';
 import { ReembolsosService } from '../service/reembolsos.service';
-import { LoginService } from '../service/login.service';
 import { Chart } from 'chart.js';
+import { UsuarioService } from '../service/usuario.service';
+import { UsuarioDTO } from '../dto/usuario-dto';
 
 @Component({
   selector: 'ca-gastos',
@@ -15,9 +15,12 @@ export class GastosComponent implements OnInit {
   sidenavParams: any[];
   chart = [];
   gastosTotais: any[];
-  usuario: any;
+  usuario: UsuarioDTO;
 
-  constructor(private reembolsoService: ReembolsosService, private loginService: LoginService) {
+  constructor(
+      private reembolsoService: ReembolsosService,
+      private usuarioService: UsuarioService
+    ) {
     this.sidenavActions = new EventEmitter<any>();
     this.sidenavParams = [{
         closeOnClick: true
@@ -31,7 +34,7 @@ export class GastosComponent implements OnInit {
 
   ngOnInit() {
     this.gastosTotais = this.reembolsoService.gastosTotal();
-    this.usuario = this.loginService.usuario;
+    this.usuario = this.usuarioService.usuario;
 
     this.chart = new Chart('canvas', {
       type: 'line',
