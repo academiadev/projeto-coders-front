@@ -36,6 +36,7 @@ import { CadastroService } from './service/cadastro.service';
 import { RecupararSenhaService } from './service/recuparar-senha.service';
 import { RedefinirSenhaService } from './service/redefinir-senha.service';
 import { AtualizaPerfilService } from './service/atualiza-perfil.service';
+import { UsuarioService } from './service/usuario.service';
 import { AvisoComponent } from './aviso/aviso.component';
 
 export function tokenGetter() {
@@ -91,6 +92,7 @@ export function tokenGetter() {
     RecupararSenhaService,
     RedefinirSenhaService,
     AtualizaPerfilService,
+    UsuarioService,
     AppErrorHandler,
     AuthGuard,
     { provide: ErrorHandler, useClass: AppErrorHandler }

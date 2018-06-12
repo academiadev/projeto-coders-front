@@ -1,12 +1,14 @@
 export class ReembolsoDTO {
 
   constructor(
+    id: number,
     descricao: string,
-    status: string,
-    valor: string,
     categoria: string,
-    usuario: string,
-    data: string
+    data: string,
+    status: string,
+    idUsuario: number,
+    arquivoPath: string,
+    valor: string
   ) { }
 
 }

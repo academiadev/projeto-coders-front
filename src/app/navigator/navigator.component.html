@@ -7,7 +7,7 @@
          data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
          <ul class="right hide-on-med-and-down">
           <li>
-            <button *ngIf="usuario.isAdmin == true" class="btn copiar-button" type="submit" id="codigoEmpresa" (click)="copiaCodigoEmpresa()" ngxClipboard [cbContent]="empresa.codigo">
+            <button *ngIf="usuario.isAdmin === true" class="btn copiar-button" type="submit" id="codigoEmpresa" (click)="copiaCodigoEmpresa()" ngxClipboard [cbContent]="empresa.codigo">
               <img src="../../assets/group-7.svg" class="copy-button">
               Cod: {{empresa.codigo}}
             </button>

@@ -13,6 +13,7 @@ import { SenhaRedefinidaComponent } from './senha-redefinida/senha-redefinida.co
 
 import { LoginGuard } from './service/login-guard.service';
 import { AuthGuard } from './service/auth-guard.service';
+import { DashboardGuard } from './service/dashboard-guard.service';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -23,8 +24,8 @@ export const ROUTES: Routes = [
   {path: 'senhaRedefinida', component: SenhaRedefinidaComponent, canActivate: [AuthGuard]},
   {path: 'redefinirSenha', component: RedefinirSenhaComponent, canActivate: [AuthGuard]},
   {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
-  {path: 'dashboardUsuario', component: DashboardUsuarioComponent, canActivate: [AuthGuard]},
-  {path: 'dashboardAdmin', component: DashboardAdminComponent, canActivate: [AuthGuard]},
+  {path: 'dashboardUsuario', component: DashboardUsuarioComponent, canActivate: [AuthGuard, DashboardGuard]},
+  {path: 'dashboardAdmin', component: DashboardAdminComponent, canActivate: [AuthGuard, DashboardGuard]},
   {path: 'gastos', component: GastosComponent, canActivate: [AuthGuard]},
   {path: 'not-found', component: NotFoundComponent},
   {path: '**', component: NotFoundComponent}

@@ -1,8 +1,10 @@
 import { Component, OnInit, EventEmitter, Input } from '@angular/core';
-import { LoginService } from '../service/login.service';
+import { UsuarioService } from '../service/usuario.service';
+import { UsuarioDTO } from '../dto/usuario-dto';
 import { toast } from 'angular2-materialize';
 import { AuthService } from './../service/auth.service';
 import { Router } from '@angular/router';
+import { EmpresaDTO } from '../dto/empresa-dto';
 
 @Component({
   selector: 'ca-navigator',
@@ -12,13 +14,13 @@ import { Router } from '@angular/router';
 export class NavigatorComponent implements OnInit {
 
   @Input() titulo;
-  usuario: any;
-  empresa: any;
+  usuario: UsuarioDTO;
+  empresa: EmpresaDTO;
   sidenavActions: EventEmitter<any>;
   sidenavParams: any[];
 
   constructor(
-    private loginService: LoginService,
+    private usuarioService: UsuarioService,
     public authService: AuthService,
     private router: Router
   ) {
@@ -38,8 +40,11 @@ export class NavigatorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.usuario = this.loginService.usuario;
-    this.empresa = this.loginService.empresa;
+    this.usuarioService.whoami().subscribe((usuario: UsuarioDTO) => {
+      this.usuario = usuario;
+      this.empresa = usuario.empresa;
+    });
+
   }
 
   onLogout() {

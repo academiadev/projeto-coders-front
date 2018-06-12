@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
       /* Onde é possível retornar uma url válida pelo queryParamMap? */
       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-      this.router.navigate([returnUrl || '/dashboardUsuario']);
+      this.router.navigate([returnUrl || '/dashboardAdmin']);
 
       /* Necessário o refreh aqui? onde é necessário? */
       this.authService.refresh().subscribe(e => { });
