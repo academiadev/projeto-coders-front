@@ -1,5 +1,5 @@
 
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { throwError } from 'rxjs';
@@ -20,6 +20,14 @@ export class DataService {
         let requestHeaders = new HttpHeaders();
         requestHeaders = requestHeaders.set('Authorization', 'Bearer ' + localStorage.getItem(environment.tokenName));
         return { headers: requestHeaders };
+    }
+
+    protected getHeadersParams(param: any) {
+        let requestHeaders = new HttpHeaders();
+        requestHeaders = requestHeaders.set('Authorization', 'Bearer ' + localStorage.getItem(environment.tokenName));
+        let params = new HttpParams();
+        params = params.set('usuarioId', param);
+        return { headers: requestHeaders, params: params };
     }
 
     getAll<T>(): Observable<T> {

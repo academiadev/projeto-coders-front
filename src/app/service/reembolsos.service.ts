@@ -155,9 +155,8 @@ export class ReembolsosService extends DataService {
   }
 
   buscarReembolsos(): Observable<any> {
-    /* Falta passar os parametros */
     return this.http.get(environment.urls.reembolso.buscarReembolsosUsuario,
-      this.getHeaders()
+      this.getHeadersParams(this.usuarioService.usuario.id)
     );
   }
 }
