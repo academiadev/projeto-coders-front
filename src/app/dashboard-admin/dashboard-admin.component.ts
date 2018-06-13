@@ -40,7 +40,7 @@ export class DashboardAdminComponent implements OnInit {
 
   openModal(reembo: any) {
     this.reembolsoSelecionado = reembo;
-    this.usuario = reembo.usuario;
+    this.usuario = reembo.nomeUsuario;
     this.valor = reembo.valor;
     this.data = reembo.data;
     this.descricao = reembo.descricao;

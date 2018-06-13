@@ -1,10 +1,8 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { MaterializeDirective } from 'angular2-materialize';
 import { toast } from 'angular2-materialize';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
 import { AtualizaPerfilService } from '../service/atualiza-perfil.service';
-import { LoginService } from '../service/login.service';
 import { UsuarioService } from '../service/usuario.service';
 import { UsuarioDTO } from '../dto/usuario-dto';
 
@@ -22,7 +20,6 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private ataualizaPerfilService: AtualizaPerfilService,
-    private loginService: LoginService,
     private usuarioService: UsuarioService
   ) {
     this.sidenavActions = new EventEmitter<any>();
@@ -32,8 +29,10 @@ export class PerfilComponent implements OnInit {
   }
 
   onSubmit(form: any) {
-    this.ataualizaPerfilService.atualiza(form);
-    toast('Perfil atualizado!', 2000, 'rounded');
+    this.ataualizaPerfilService.atualiza(form).subscribe(res => {
+      /* Ao atualizar o email o token se perde e invalida a sessão */
+      toast('Perfil atualizado!', 2000, 'rounded');
+    });
   }
 
   public showSidenav(): void {

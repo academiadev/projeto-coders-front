@@ -43,6 +43,9 @@ export class NavigatorComponent implements OnInit {
     this.usuarioService.whoami().subscribe((usuario: UsuarioDTO) => {
       this.usuario = usuario;
       this.empresa = usuario.empresa;
+    },
+    (e) => {
+      this.authService.logoutAndRedirect();
     });
 
   }
