@@ -14,7 +14,7 @@ import { EmpresaDTO } from '../dto/empresa-dto';
 export class NavigatorComponent implements OnInit {
 
   @Input() titulo;
-  usuario: UsuarioDTO;
+  usuario: UsuarioDTO = { 'id': 0, 'nome': '', 'email': '', 'senha': '', 'isAdmin': false, 'empresa': null };
   empresa: EmpresaDTO;
   sidenavActions: EventEmitter<any>;
   sidenavParams: any[];
