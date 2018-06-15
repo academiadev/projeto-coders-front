@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CadastroService } from '../service/cadastro.service';
+import { AuthService } from './../service/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
+import { UsuarioDTO } from '../dto/usuario-dto';
 
 @Component({
   selector: 'ca-cadastro',
@@ -11,11 +13,18 @@ import { CustomValidators } from '../validators/inputs.validators';
 export class CadastroComponent implements OnInit {
 
   cadastroForm: FormGroup;
+  login: any;
 
-  constructor(private cadastroService: CadastroService) { }
+  constructor(private cadastroService: CadastroService,
+              private authService: AuthService) { }
 
   onSubmit(form: any) {
-    this.cadastroService.cadastrarUsuario(form).subscribe(res => console.log(res));
+    this.cadastroService.cadastrarUsuario(form).subscribe((usuario: UsuarioDTO) => {
+      console.log(usuario);
+    },
+    (e) => {
+      console.log(e.error);
+    });
   }
 
   ngOnInit() {
