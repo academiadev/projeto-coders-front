@@ -5,6 +5,7 @@ import { UsuarioService } from './usuario.service';
 import { environment } from './../../environments/environment';
 import { DataService } from './data.service';
 import { Observable } from 'rxjs/internal/Observable';
+import { ParamValue } from './param-value';
 
 @Injectable()
 export class ReembolsosService extends DataService {
@@ -15,52 +16,7 @@ export class ReembolsosService extends DataService {
     super(environment.backEndUrl, http);
   }
 
-  reem: ReembolsoDTO[] = [
-    {
-      id: null,
-      descricao: 'Visita',
-      status: 'waiting',
-      valor: '312,00',
-      categoria: 'Outros',
-      nomeUsuario: 'Felipe',
-      data: '10/10/2008',
-      idUsuario: null,
-      arquivoPath: null
-    },
-    {
-      id: null,
-      descricao: 'Almoço',
-      status: 'approved',
-      valor: '215,00',
-      categoria: 'Alimentação',
-      nomeUsuario: 'Willian',
-      data: '10/10/2008',
-      idUsuario: null,
-      arquivoPath: null
-    },
-    {
-      id: null,
-      descricao: 'Hotel',
-      status: 'canceled',
-      valor: '312,00',
-      categoria: 'Hospedagem',
-      nomeUsuario: 'Kauan',
-      data: '10/10/2008',
-      idUsuario: null,
-      arquivoPath: null
-    },
-    {
-      id: null,
-      descricao: 'Uber',
-      status: 'canceled',
-      valor: '40,00',
-      categoria: 'Transporte',
-      nomeUsuario: 'Bruno',
-      data: '10/10/2008',
-      idUsuario: null,
-      arquivoPath: null
-    }
-  ];
+  reem: ReembolsoDTO[];
 
   cat: any[] = [
     {
@@ -155,8 +111,15 @@ export class ReembolsosService extends DataService {
   }
 
   buscarReembolsos(): Observable<any> {
+    console.log(this.usuarioService.usuario);
+    const param: ParamValue[] = [
+      { key: 'usuarioId', value: this.usuarioService.usuario.id }
+    ];
+
+    console.log('AQUIIII');
+    
     return this.http.get(environment.urls.reembolso.buscarReembolsosUsuario,
-      this.getHeadersParams(this.usuarioService.usuario.id)
+      this.getHeadersParams(param)
     );
   }
 }

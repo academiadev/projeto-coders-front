@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { environment } from './../../environments/environment';
+import { DataService } from './data.service';
+import { ParamValue } from './param-value';
 
 @Injectable()
-export class CadastroService {
-  constructor(private http: HttpClient) {}
+export class CadastroService extends DataService {
+
+  constructor(http: HttpClient) {
+    super(environment.backEndUrl, http);
+  }
 
   cadastro: any = {
     'email': '',
@@ -27,7 +33,14 @@ export class CadastroService {
   }
 
   cadastrarUsuario(cadastro: any) {
-    return this.http.post('http://localhost:8080/cadastrarUsuario?empresaCodigo=' + cadastro.codigoEmpresa +
-    '&empresaNome=' + cadastro.nomeEmpresa, this.modelaCadastro(cadastro));
+    const param: ParamValue[] = [
+      { key: 'empresaCodigo', value: cadastro.codigoEmpresa },
+      { key: 'empresaNome', value: cadastro.nomeEmpresa }
+    ];
+
+    return this.http.post(environment.urls.usuario.cadastro, 
+      this.modelaCadastro(cadastro),
+      this.getHeadersParams(param)
+    );
   }
 }

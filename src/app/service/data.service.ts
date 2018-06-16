@@ -8,6 +8,7 @@ import { NotFoundError } from './../commons/not-found-error';
 import { BadInputError } from './../commons/bad-input';
 import { BadCredentialsError } from './../commons/bad-credentials';
 import { environment } from './../../environments/environment.dev';
+import { ParamValue } from './param-value';
 
 export class DataService {
 
@@ -22,11 +23,13 @@ export class DataService {
         return { headers: requestHeaders };
     }
 
-    protected getHeadersParams(param: any) {
+    protected getHeadersParams(param: ParamValue[]) {
         let requestHeaders = new HttpHeaders();
         requestHeaders = requestHeaders.set('Authorization', 'Bearer ' + localStorage.getItem(environment.tokenName));
         let params = new HttpParams();
-        params = params.set('usuarioId', param);
+        param.forEach(p => {
+            params = params.set(p.key, p.value);    
+        });
         return { headers: requestHeaders, params: params };
     }
 

@@ -40,6 +40,7 @@ export class NavigatorComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.usuarioService.whoami().subscribe((usuario: UsuarioDTO) => {
       this.usuario = usuario;
       this.empresa = usuario.empresa;
