@@ -40,6 +40,7 @@ export class NavigatorComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.onLogout();
     this.usuarioService.whoami().subscribe((usuario: UsuarioDTO) => {
       this.usuario = usuario;
       this.empresa = usuario.empresa;
@@ -51,7 +52,8 @@ export class NavigatorComponent implements OnInit {
   }
 
   onLogout() {
-    this.authService.logoutAndRedirect();
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }
