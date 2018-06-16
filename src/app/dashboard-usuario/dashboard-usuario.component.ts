@@ -67,8 +67,9 @@ export class DashboardUsuarioComponent implements OnInit {
         descricao: reembo.descricao,
         categoria: reembo.categoria,
         data: reembo.data,
-        valor: reembo.valor,
-        arquivoPath: reembo.arquivoPath    
+        valor: reembo.valor.replace('.', ','),
+        arquivoPath: null,
+        fileName: reembo.arquivoPath
       });
       this.modalActionsEdit.emit( {action: 'modal', params: ['open']});
     }
@@ -91,8 +92,7 @@ export class DashboardUsuarioComponent implements OnInit {
   adicionaReembolso() {
     this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value, this.fileSelected).subscribe(res => {
       this.reembolsoService.buscarReembolsos().subscribe((res) => {
-      this.reembolsos = <ReembolsoDTO[]>res;
-        console.log(this.reembolsos);
+        this.reembolsos = <ReembolsoDTO[]>res;
       });
     });
     this.limparModal(this.dashBoardUserForm);
@@ -111,19 +111,19 @@ export class DashboardUsuarioComponent implements OnInit {
   onFileSelected(event) {
     let reader = new FileReader();
 
-    if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
+    // if(event.target.files && event.target.files.length) {
+    //   const [file] = event.target.files;
+    //   reader.readAsDataURL(file);
     
-      reader.onload = () => {
-        this.dashBoardUserForm.patchValue({
-          arquivoPath: reader.result
-        });
+    //   reader.onload = () => {
+    //     this.dashBoardUserForm.patchValue({
+    //       arquivoPath: reader.result
+    //     });
         
-        // need to run CD since file load runs outside of zone
+    //     // need to run CD since file load runs outside of zone
         
-      };
-    }
+    //   };
+    // }
 
     this.fileSelected = <File>event.target.files[0];
   }
@@ -141,8 +141,8 @@ export class DashboardUsuarioComponent implements OnInit {
       categoria: new FormControl('', [Validators.required]),
       data : new FormControl('', [Validators.required]),
       valor : new FormControl('', [Validators.required]),
-      arquivoPath : new FormControl(null, [Validators.required])
-      // status: new FormControl('', [Validators.required])
+      arquivoPath : new FormControl(null, [Validators.required]),
+      fileName : new FormControl('')
     });
   }
 
@@ -151,5 +151,6 @@ export class DashboardUsuarioComponent implements OnInit {
   get data(): any { return this.dashBoardUserForm.get('data'); }
   get valor(): any { return this.dashBoardUserForm.get('valor'); }
   get arquivoPath(): any { return this.dashBoardUserForm.get('arquivoPath'); }
+  get fileName(): any { return this.dashBoardUserForm.get('fileName'); }
 
 }

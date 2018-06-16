@@ -105,18 +105,13 @@ export class ReembolsosService extends DataService {
     reembolso.id = null;
     reembolso.idUsuario = this.usuarioService.usuario.id;
     reembolso.status = '';
-    console.log(reembolso);
-    console.log(file);
     return this.http.post(environment.urls.reembolso.cadastrar, reembolso, this.getHeaders());
   }
 
   buscarReembolsos(): Observable<any> {
-    console.log(this.usuarioService.usuario);
     const param: ParamValue[] = [
       { key: 'usuarioId', value: this.usuarioService.usuario.id }
     ];
-
-    console.log('AQUIIII');
     
     return this.http.get(environment.urls.reembolso.buscarReembolsosUsuario,
       this.getHeadersParams(param)
