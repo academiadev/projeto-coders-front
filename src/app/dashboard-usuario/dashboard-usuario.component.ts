@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MaterializeAction } from 'angular2-materialize';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { ReembolsosService } from '../service/reembolsos.service';
+import { toast } from 'angular2-materialize';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReembolsoDTO } from '../dto/reembolso-dto';
 
@@ -91,17 +92,17 @@ export class DashboardUsuarioComponent implements OnInit {
 
   adicionaReembolso() {
     this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value, this.fileSelected).subscribe(res => {
-      this.reembolsoService.buscarReembolsosUsuario().subscribe((res) => {
-        this.reembolsos = <ReembolsoDTO[]>res;
-        this.reembolsoService.reem = this.reembolsos;
-      });
+      this.buscarReembolsos();
     });
     this.limparModal(this.dashBoardUserForm);
   }
 
   excluirReembolso() {
     if (confirm('Você deseja excluir o item: ' + this.reembolsoSelecionado.descricao + '?')) {
-      this.reembolsoService.excluirReembolso(this.reembolsoSelecionado);
+      this.reembolsoService.excluirReembolso(this.reembolsoSelecionado).subscribe((res) => {
+        this.buscarReembolsos();
+        toast('Reembolso ' + this.reembolsoSelecionado.descricao + 'excluído!', 2000, 'rounded');
+      });
     }
   }
 
@@ -134,11 +135,15 @@ export class DashboardUsuarioComponent implements OnInit {
     this.fileSelected = <File>event.target.files[0];
   }
 
-  ngOnInit() {
+  buscarReembolsos() {
     this.reembolsoService.buscarReembolsosUsuario().subscribe((res) => {
       this.reembolsos = <ReembolsoDTO[]>res;
       this.reembolsoService.reem = this.reembolsos;
     });
+  }
+
+  ngOnInit() {
+    this.buscarReembolsos();
 
     this.categorias = this.reembolsoService.categorias();
 

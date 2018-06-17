@@ -19,7 +19,7 @@
           <tr *ngFor="let reembolso of reembolsos" (click)="openModal(reembolso)">
             <td>{{reembolso.descricao}}</td>
             <td><img src="../../assets/{{reembolso.status}}.svg" class="{{reembolso.status}}"></td>
-            <td>{{reembolso.valor}}</td>
+            <td>{{reembolso.valor.replace('.',',')}}</td>
             <td>{{reembolso.categoria}}</td>
             <td>{{reembolso.nomeUsuario}}</td>
           </tr>
