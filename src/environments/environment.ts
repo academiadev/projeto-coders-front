@@ -21,8 +21,11 @@ export const environment = {
       whoami: 'http://localhost:8080/whoami'
     },
     reembolso: {
+      editar: 'http://localhost:8080/editarReembolso',
       cadastrar: 'http://localhost:8080/cadastrarReembolso',
-      buscarReembolsosUsuario: 'http://localhost:8080/listaReembolsosUsuario'
+      buscarReembolsosUsuario: 'http://localhost:8080/listaReembolsosUsuario',
+      buscarReembolsosEmpresa: 'http://localhost:8080/listaReembolsosEmpresa',
+      alteraStatusReembolso: 'http://localhost:8080/alterarStatusReembolso'
     }
   }
 };

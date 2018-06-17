@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { MaterializeDirective, MaterializeAction } from 'angular2-materialize';
+import { MaterializeAction } from 'angular2-materialize';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { ReembolsosService } from '../service/reembolsos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -59,14 +59,17 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   openModalEdit(reembo: any) {
+    console.log('OPENMODALEDIT');
+    console.log(reembo);
     if (reembo.status === 'waiting') {
       this.reembolsoSelecionado = reembo;
-      this.dashBoardUserForm.patchValue({
+      this.dashBoardUserForm.setValue({        
         descricao: reembo.descricao,
         categoria: reembo.categoria,
         data: reembo.data,
-        valor: reembo.valor,
-        arquivoPath: reembo.arquivoPath
+        valor: reembo.valor.replace('.', ','),
+        arquivoPath: null,
+        fileName: reembo.arquivoPath
       });
       this.modalActionsEdit.emit( {action: 'modal', params: ['open']});
     }
@@ -88,9 +91,11 @@ export class DashboardUsuarioComponent implements OnInit {
 
   adicionaReembolso() {
     this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value, this.fileSelected).subscribe(res => {
-      console.log(res);
+      this.reembolsoService.buscarReembolsosUsuario().subscribe((res) => {
+        this.reembolsos = <ReembolsoDTO[]>res;
+        this.reembolsoService.reem = this.reembolsos;
+      });
     });
-    this.reembolsoService.setReembolso(this.dashBoardUserForm.value);
     this.limparModal(this.dashBoardUserForm);
   }
 
@@ -101,20 +106,40 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   editarReembolso() {
-    this.reembolsoService.editarReembolso(this.dashBoardUserForm, this.reembolsoSelecionado);
+    this.reembolsoService.editarReembolso(
+      this.dashBoardUserForm,
+      this.reembolsoSelecionado
+    ).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   onFileSelected(event) {
+    let reader = new FileReader();
+
+    // if(event.target.files && event.target.files.length) {
+    //   const [file] = event.target.files;
+    //   reader.readAsDataURL(file);
+    
+    //   reader.onload = () => {
+    //     this.dashBoardUserForm.patchValue({
+    //       arquivoPath: reader.result
+    //     });
+        
+    //     // need to run CD since file load runs outside of zone
+        
+    //   };
+    // }
+
     this.fileSelected = <File>event.target.files[0];
   }
 
   ngOnInit() {
-    // this.reembolsoService.buscarReembolsos().subscribe((res) => {
-      // this.reembolsos = <ReembolsoDTO[]>res;
-      //   console.log(this.reembolsos);
-      // });
+    this.reembolsoService.buscarReembolsosUsuario().subscribe((res) => {
+      this.reembolsos = <ReembolsoDTO[]>res;
+      this.reembolsoService.reem = this.reembolsos;
+    });
 
-    this.reembolsos = this.reembolsoService.reembolsos();
     this.categorias = this.reembolsoService.categorias();
 
     this.dashBoardUserForm = new FormGroup({
@@ -122,8 +147,8 @@ export class DashboardUsuarioComponent implements OnInit {
       categoria: new FormControl('', [Validators.required]),
       data : new FormControl('', [Validators.required]),
       valor : new FormControl('', [Validators.required]),
-      arquivoPath : new FormControl('', [Validators.required])
-      // status: new FormControl('', [Validators.required])
+      arquivoPath : new FormControl(null, [Validators.required]),
+      fileName : new FormControl('')
     });
   }
 
@@ -132,5 +157,6 @@ export class DashboardUsuarioComponent implements OnInit {
   get data(): any { return this.dashBoardUserForm.get('data'); }
   get valor(): any { return this.dashBoardUserForm.get('valor'); }
   get arquivoPath(): any { return this.dashBoardUserForm.get('arquivoPath'); }
+  get fileName(): any { return this.dashBoardUserForm.get('fileName'); }
 
 }

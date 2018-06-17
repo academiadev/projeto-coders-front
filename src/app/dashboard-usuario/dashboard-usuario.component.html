@@ -17,7 +17,7 @@
           <tr *ngFor="let reembolso of reembolsos" (click)="openModalEdit(reembolso)">
             <td>{{reembolso.descricao}}</td>
             <td><img src="../../assets/{{reembolso.status}}.svg" class="{{reembolso.status}}"></td>
-            <td>{{reembolso.valor}}</td>
+            <td>{{reembolso.valor.replace('.',',')}}</td>
             <td>{{reembolso.categoria}}</td>
           </tr>
         </tbody>
@@ -133,7 +133,7 @@
               <input type="file" accept="image/jpeg,image/png,application/pdf,image" (change)="onFileSelected($event)" formControlName="file"/>
             </div>
             <div class="file-path-wrapper">
-              <input class="file-path" type="text">
+              <input class="file-path" type="text" formControlName="fileName">
             </div>
           </div>
         </form>

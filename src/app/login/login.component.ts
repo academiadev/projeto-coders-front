@@ -8,6 +8,8 @@ import { environment } from './../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BadCredentialsError } from './../commons/bad-credentials';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UsuarioService } from '../service/usuario.service';
+import { UsuarioDTO } from '../dto/usuario-dto';
 
 @Component({
   selector: 'ca-login',
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService,
               private route: ActivatedRoute,
               private router: Router,
-              private jwtHelper: JwtHelperService
+              private jwtHelper: JwtHelperService,
+              private usuarioService: UsuarioService
   ) { }
 
   onSubmit(login: LoginDTO) {
@@ -31,13 +34,12 @@ export class LoginComponent implements OnInit {
       console.log(token.accessToken);
       const decodedToken = this.jwtHelper.decodeToken(token.accessToken);
       console.log(decodedToken);
+      
+      this.usuarioService.usuario = decodedToken.usuario;
 
       /* Onde é possível retornar uma url válida pelo queryParamMap? */
       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
       this.router.navigate([returnUrl || '/dashboardAdmin']);
-
-      /* Necessário o refreh aqui? onde é necessário? */
-      this.authService.refresh().subscribe(e => { });
     },
       (e) => {
         if (e instanceof BadCredentialsError) {

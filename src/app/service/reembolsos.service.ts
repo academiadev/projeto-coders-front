@@ -5,6 +5,7 @@ import { UsuarioService } from './usuario.service';
 import { environment } from './../../environments/environment';
 import { DataService } from './data.service';
 import { Observable } from 'rxjs/internal/Observable';
+import { ParamValue } from './param-value';
 
 @Injectable()
 export class ReembolsosService extends DataService {
@@ -15,52 +16,7 @@ export class ReembolsosService extends DataService {
     super(environment.backEndUrl, http);
   }
 
-  reem: ReembolsoDTO[] = [
-    {
-      id: null,
-      descricao: 'Visita',
-      status: 'waiting',
-      valor: '312,00',
-      categoria: 'Outros',
-      nomeUsuario: 'Felipe',
-      data: '10/10/2008',
-      idUsuario: null,
-      arquivoPath: null
-    },
-    {
-      id: null,
-      descricao: 'Almoço',
-      status: 'approved',
-      valor: '215,00',
-      categoria: 'Alimentação',
-      nomeUsuario: 'Willian',
-      data: '10/10/2008',
-      idUsuario: null,
-      arquivoPath: null
-    },
-    {
-      id: null,
-      descricao: 'Hotel',
-      status: 'canceled',
-      valor: '312,00',
-      categoria: 'Hospedagem',
-      nomeUsuario: 'Kauan',
-      data: '10/10/2008',
-      idUsuario: null,
-      arquivoPath: null
-    },
-    {
-      id: null,
-      descricao: 'Uber',
-      status: 'canceled',
-      valor: '40,00',
-      categoria: 'Transporte',
-      nomeUsuario: 'Bruno',
-      data: '10/10/2008',
-      idUsuario: null,
-      arquivoPath: null
-    }
-  ];
+  reem: ReembolsoDTO[];
 
   cat: any[] = [
     {
@@ -137,11 +93,17 @@ export class ReembolsosService extends DataService {
     }
   }
 
-  editarReembolso(novoForm: any, antigoForm: any) {
+  editarReembolso(novoForm: any, antigoForm: any): Observable<any> {
     const index = this.reem.indexOf(antigoForm, 0);
     if (index > -1) {
       novoForm.value.status = 'waiting';
       this.reem[index] = novoForm.value;
+      novoForm.value.id = antigoForm.id;
+      novoForm.value.idUsuario = antigoForm.idUsuario;
+      novoForm.value.arquivoPath = antigoForm.arquivoPath;
+      novoForm.value.nomeUsuario = antigoForm.nomeUsuario;
+      console.log(antigoForm);
+      return this.http.post(environment.urls.reembolso.editar, novoForm.value, this.getHeaders());
     }
   }
 
@@ -149,14 +111,40 @@ export class ReembolsosService extends DataService {
     reembolso.id = null;
     reembolso.idUsuario = this.usuarioService.usuario.id;
     reembolso.status = '';
-    console.log(reembolso);
-    console.log(file);
     return this.http.post(environment.urls.reembolso.cadastrar, reembolso, this.getHeaders());
   }
 
-  buscarReembolsos(): Observable<any> {
+  buscarReembolsosUsuario(): Observable<any> {
+    const param: ParamValue[] = [
+      { key: 'usuarioId', value: this.usuarioService.usuario.id }
+    ];
+    
     return this.http.get(environment.urls.reembolso.buscarReembolsosUsuario,
-      this.getHeadersParams(this.usuarioService.usuario.id)
+      this.getHeadersParams(param)
+    );
+  }
+
+  alterarStatusReembolso(reembolsoId: string, status: string): Observable<any> {
+    const param: ParamValue[] = [
+      { key: 'reembolsoId', value: reembolsoId },
+      { key: 'status', value: status }
+    ];
+
+    return this.http.post(environment.urls.reembolso.alteraStatusReembolso, {},
+      this.getHeadersParams(param)
+    );
+  }
+
+  buscarReembolsosEmpresa(): Observable<any> {
+    console.log('buscarReembolsosEmpresa');
+    console.log(this.usuarioService.usuario);
+    console.log(this.usuarioService.usuario.empresa.id);
+    const param: ParamValue[] = [
+      { key: 'empresaId', value: this.usuarioService.usuario.empresa.id }
+    ];
+    
+    return this.http.get(environment.urls.reembolso.buscarReembolsosEmpresa,
+      this.getHeadersParams(param)
     );
   }
 }

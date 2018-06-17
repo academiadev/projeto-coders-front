@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { MaterializeDirective, MaterializeAction } from 'angular2-materialize';
 import { ReembolsosService } from '../service/reembolsos.service';
 import { toast } from 'angular2-materialize';
+import { ReembolsoDTO } from '../dto/reembolso-dto';
 
 @Component({
   selector: 'ca-dashboard-admin',
@@ -22,14 +23,15 @@ export class DashboardAdminComponent implements OnInit {
 
   categorias: any[];
 
-  reembolsos: any[];
+  reembolsos: ReembolsoDTO[];
 
   usuario: string;
   valor: string;
   data: string;
   descricao: string;
   categoria: string;
-  reembolsoSelecionado: any;
+
+  reembolsoSelecionado: ReembolsoDTO;
 
   constructor(private reembolsoService: ReembolsosService) {
     this.sidenavActions = new EventEmitter<any>();
@@ -53,7 +55,19 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   setStatusReembolso(status: string) {
-    this.reembolsoSelecionado.status = status;
+    this.reembolsoService.alterarStatusReembolso(
+      this.reembolsoSelecionado.id.toString(), 
+      status
+    ).subscribe((res) => {
+      this.buscaReembolsos();
+    });
+  }
+
+  buscaReembolsos() {
+    this.reembolsoService.buscarReembolsosEmpresa().subscribe((res) => {
+      this.reembolsos = <ReembolsoDTO[]>res;
+      console.log(res);
+    });
   }
 
   copiaCodigoEmpresa() {
@@ -66,7 +80,7 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reembolsos = this.reembolsoService.reembolsos();
+    this.buscaReembolsos();
     this.categorias = this.reembolsoService.categorias();
   }
 
