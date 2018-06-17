@@ -32,9 +32,29 @@ export class GastosComponent implements OnInit {
     this.sidenavActions.emit('sideNav');
   }
 
+  buscarReembolsosEmpresa() {
+    this.reembolsoService.buscarReembolsosEmpresa().subscribe((res) => {
+        console.log('buscarReembolsosEmpresa');
+        console.log(res);
+    });
+  }
+
+  buscarReembolsosUsuario() {
+    this.reembolsoService.buscarReembolsosUsuario().subscribe((res) => {
+        console.log('buscarReembolsosUsuario');
+        console.log(res);
+    });
+  }
+
   ngOnInit() {
     this.gastosTotais = this.reembolsoService.gastosTotal();
     this.usuario = this.usuarioService.usuario;
+
+    if(this.usuario.isAdmin) {
+        this.buscarReembolsosEmpresa();
+    } else {
+        this.buscarReembolsosUsuario();
+    }
 
     this.chart = new Chart('canvas', {
       type: 'line',

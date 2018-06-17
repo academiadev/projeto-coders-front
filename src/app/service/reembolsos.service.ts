@@ -72,24 +72,15 @@ export class ReembolsosService extends DataService {
     return this.gastosTot;
   }
 
-  setReembolso(form: any): void {
-    this.reem.push({
-      id: null,
-      descricao: form.nome,
-      categoria: form.categoria,
-      data: form.data,
-      status: 'waiting',
-      idUsuario: null,
-      nomeUsuario: 'Felipe F',
-      arquivoPath: '',
-      valor: form.valor
-    });
-  }
-
-  excluirReembolso(form: any) {
+  excluirReembolso(form: ReembolsoDTO): Observable<any> {
     const index = this.reem.indexOf(form, 0);
     if (index > -1) {
-      this.reem.splice(index, 1);
+      const param: ParamValue[] = [
+        { key: 'reembolsoId', value: form.id }
+      ];
+
+      return this.http.post(environment.urls.reembolso.excluir, {},
+        this.getHeadersParams(param));
     }
   }
 

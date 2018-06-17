@@ -25,7 +25,8 @@ export const environment = {
       cadastrar: 'http://localhost:8080/cadastrarReembolso',
       buscarReembolsosUsuario: 'http://localhost:8080/listaReembolsosUsuario',
       buscarReembolsosEmpresa: 'http://localhost:8080/listaReembolsosEmpresa',
-      alteraStatusReembolso: 'http://localhost:8080/alterarStatusReembolso'
+      alteraStatusReembolso: 'http://localhost:8080/alterarStatusReembolso',
+      excluir: 'http://localhost:8080/excluirReembolso'
     }
   }
 };
