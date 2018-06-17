@@ -93,6 +93,7 @@ export class DashboardUsuarioComponent implements OnInit {
     this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value, this.fileSelected).subscribe(res => {
       this.reembolsoService.buscarReembolsosUsuario().subscribe((res) => {
         this.reembolsos = <ReembolsoDTO[]>res;
+        this.reembolsoService.reem = this.reembolsos;
       });
     });
     this.limparModal(this.dashBoardUserForm);
@@ -105,7 +106,12 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   editarReembolso() {
-    this.reembolsoService.editarReembolso(this.dashBoardUserForm, this.reembolsoSelecionado);
+    this.reembolsoService.editarReembolso(
+      this.dashBoardUserForm,
+      this.reembolsoSelecionado
+    ).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   onFileSelected(event) {
@@ -131,6 +137,7 @@ export class DashboardUsuarioComponent implements OnInit {
   ngOnInit() {
     this.reembolsoService.buscarReembolsosUsuario().subscribe((res) => {
       this.reembolsos = <ReembolsoDTO[]>res;
+      this.reembolsoService.reem = this.reembolsos;
     });
 
     this.categorias = this.reembolsoService.categorias();

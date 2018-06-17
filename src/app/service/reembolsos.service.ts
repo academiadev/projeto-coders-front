@@ -93,11 +93,17 @@ export class ReembolsosService extends DataService {
     }
   }
 
-  editarReembolso(novoForm: any, antigoForm: any) {
+  editarReembolso(novoForm: any, antigoForm: any): Observable<any> {
     const index = this.reem.indexOf(antigoForm, 0);
     if (index > -1) {
       novoForm.value.status = 'waiting';
       this.reem[index] = novoForm.value;
+      novoForm.value.id = antigoForm.id;
+      novoForm.value.idUsuario = antigoForm.idUsuario;
+      novoForm.value.arquivoPath = antigoForm.arquivoPath;
+      novoForm.value.nomeUsuario = antigoForm.nomeUsuario;
+      console.log(antigoForm);
+      return this.http.post(environment.urls.reembolso.editar, novoForm.value, this.getHeaders());
     }
   }
 
