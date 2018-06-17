@@ -91,7 +91,7 @@ export class DashboardUsuarioComponent implements OnInit {
 
   adicionaReembolso() {
     this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value, this.fileSelected).subscribe(res => {
-      this.reembolsoService.buscarReembolsos().subscribe((res) => {
+      this.reembolsoService.buscarReembolsosUsuario().subscribe((res) => {
         this.reembolsos = <ReembolsoDTO[]>res;
       });
     });
@@ -129,9 +129,8 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reembolsoService.buscarReembolsos().subscribe((res) => {
+    this.reembolsoService.buscarReembolsosUsuario().subscribe((res) => {
       this.reembolsos = <ReembolsoDTO[]>res;
-        console.log(this.reembolsos);
     });
 
     this.categorias = this.reembolsoService.categorias();
