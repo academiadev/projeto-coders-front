@@ -127,9 +127,6 @@ export class ReembolsosService extends DataService {
   }
 
   buscarReembolsosEmpresa(): Observable<any> {
-    console.log('buscarReembolsosEmpresa');
-    console.log(this.usuarioService.usuario);
-    console.log(this.usuarioService.usuario.empresa.id);
     const param: ParamValue[] = [
       { key: 'empresaId', value: this.usuarioService.usuario.empresa.id }
     ];

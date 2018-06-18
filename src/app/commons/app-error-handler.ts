@@ -31,7 +31,6 @@ export class AppErrorHandler implements ErrorHandler {
             return;
         }
 
-        toast(error, 2000, 'rounded');
         return;
     }
 

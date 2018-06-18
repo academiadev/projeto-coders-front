@@ -111,12 +111,12 @@ export class DashboardUsuarioComponent implements OnInit {
       this.dashBoardUserForm,
       this.reembolsoSelecionado
     ).subscribe((res) => {
-      console.log(res);
+      toast('Reembolso editado!', 2000, 'rounded');
     });
   }
 
   onFileSelected(event) {
-    let reader = new FileReader();
+    // let reader = new FileReader();
 
     // if(event.target.files && event.target.files.length) {
     //   const [file] = event.target.files;
@@ -131,7 +131,7 @@ export class DashboardUsuarioComponent implements OnInit {
     //   };
     // }
 
-    this.fileSelected = <File>event.target.files[0];
+    // this.fileSelected = <File>event.target.files[0];
   }
 
   buscarReembolsos() {

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import { DataService } from './data.service';
+import { ParamValue } from './param-value';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,14 @@ export class UsuarioService extends DataService {
     );
   }
 
-  // pesquisaUsuario(): Observable<UsuarioDTO> {
-  //   return this.http.get()
-  // }
+  pesquisaUsuario(usuarioId: string): Observable<any> {
+    const param: ParamValue[] = [
+      { key: 'usuarioId', value: usuarioId }
+    ];
+
+    return this.http.get(
+      environment.urls.usuario.pesquisaUsuario,
+      this.getHeadersParams(param)
+    );
+  }
 }

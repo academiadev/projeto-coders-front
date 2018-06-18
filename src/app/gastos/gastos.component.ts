@@ -3,7 +3,6 @@ import { ReembolsosService } from '../service/reembolsos.service';
 import { Chart } from 'chart.js';
 import { UsuarioService } from '../service/usuario.service';
 import { UsuarioDTO } from '../dto/usuario-dto';
-import { element } from 'protractor';
 import { ReembolsoDTO } from '../dto/reembolso-dto';
 
 @Component({
@@ -16,7 +15,7 @@ export class GastosComponent implements OnInit {
   sidenavActions: EventEmitter<any>;
   sidenavParams: any[];
   chart = [];
-  gastosTotais: any[];
+  gastosTotais: any[] = [];
   usuario: UsuarioDTO;
 
   meses: any[] = [];
@@ -63,25 +62,37 @@ export class GastosComponent implements OnInit {
   carregaGastosTotais(reembolsos: ReembolsoDTO[]) {
     const map = new Map();
     reembolsos.forEach(x => {
-        if (!map.has(x.idUsuario)) {
-            map.set(x.idUsuario, x.valor);
-        } else {
-            map.set(x.idUsuario, +map.get(x.idUsuario) + +x.valor);
+        if (x.status === 'approved') {
+            if (!map.has(x.idUsuario)) {
+                map.set(x.idUsuario, x.valor);
+            } else {
+                map.set(x.idUsuario, +map.get(x.idUsuario) + +x.valor);
+            }
         }
     });
 
-    // map.forEach((value: any, key: any) => {
-    //     this.usuarioService.
-    // });
+    map.forEach((value: any, key: any) => {
+        this.usuarioService.pesquisaUsuario(key).subscribe((res) => {
+            this.gastosTotais.push(
+                {
+                    valor: value.toFixed(2),
+                    email: res.email,
+                    usuario: res.nome
+                }
+            );
+        });
+    });
   }
 
   carregaDadosGrafico(reembolsos: ReembolsoDTO[]) {
       console.log(reembolsos);
       reembolsos.forEach(a => {
-          if (this.meses.indexOf(a.data.substring(3)) === -1) {
-              this.meses.push(a.data.substring(3));
+          if(a.status === 'approved') {
+            if (this.meses.indexOf(a.data.substring(3)) === -1) {
+                this.meses.push(a.data.substring(3));
+            }
+            this.gastos.push({ mes: a.data.substring(3), categoria: a.categoria, valor: a.valor });
           }
-          this.gastos.push({ mes: a.data.substring(3), categoria: a.categoria, valor: a.valor });
       });
       this.gastos = this.gastos.sort((n1, n2): any => {
           if (n1.mes.substring(0, 2) > n2.mes.substring(0, 2) || n1.mes.substring(3) > n2.mes.substring(3)) {
@@ -202,7 +213,6 @@ export class GastosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.gastosTotais = this.reembolsoService.gastosTotal();
     this.usuario = this.usuarioService.usuario;
 
     if (this.usuario.isAdmin) {
