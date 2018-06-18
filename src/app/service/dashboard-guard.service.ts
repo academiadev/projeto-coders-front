@@ -17,17 +17,13 @@ export class DashboardGuard implements CanActivate {
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const token = localStorage.getItem(environment.tokenName);
-    const decodedToken = this.jwtHelper.decodeToken(token);
-    this.usuarioService.usuario = decodedToken.usuario;
-
-    if(!this.usuarioService.usuario.isAdmin &&
+    if (!this.usuarioService.usuario.isAdmin &&
       route.routeConfig.path === 'dashboardAdmin') {
         this.router.navigate(['/dashboardUsuario']);
-        return false; 
+        return false;
     }
 
-    if(this.usuarioService.usuario.isAdmin &&
+    if (this.usuarioService.usuario.isAdmin &&
       route.routeConfig.path === 'dashboardUsuario') {
         this.router.navigate(['/dashboardAdmin']);
         return false;

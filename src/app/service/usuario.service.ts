@@ -28,4 +28,8 @@ export class UsuarioService extends DataService {
       map(res => this.usuario = <UsuarioDTO>res)
     );
   }
+
+  // pesquisaUsuario(): Observable<UsuarioDTO> {
+  //   return this.http.get()
+  // }
 }
