@@ -64,7 +64,7 @@ export class DashboardUsuarioComponent implements OnInit {
     console.log(reembo);
     if (reembo.status === 'waiting') {
       this.reembolsoSelecionado = reembo;
-      this.dashBoardUserForm.setValue({        
+      this.dashBoardUserForm.setValue({
         descricao: reembo.descricao,
         categoria: reembo.categoria,
         data: reembo.data,
@@ -111,28 +111,27 @@ export class DashboardUsuarioComponent implements OnInit {
       this.dashBoardUserForm,
       this.reembolsoSelecionado
     ).subscribe((res) => {
-      console.log(res);
+      toast('Reembolso editado!', 2000, 'rounded');
     });
   }
 
   onFileSelected(event) {
-    let reader = new FileReader();
+    // let reader = new FileReader();
 
     // if(event.target.files && event.target.files.length) {
     //   const [file] = event.target.files;
     //   reader.readAsDataURL(file);
-    
     //   reader.onload = () => {
     //     this.dashBoardUserForm.patchValue({
     //       arquivoPath: reader.result
     //     });
-        
+
     //     // need to run CD since file load runs outside of zone
-        
+
     //   };
     // }
 
-    this.fileSelected = <File>event.target.files[0];
+    // this.fileSelected = <File>event.target.files[0];
   }
 
   buscarReembolsos() {

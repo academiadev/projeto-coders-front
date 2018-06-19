@@ -9,6 +9,7 @@ import { IsAuthDTO } from './../dto/is-auth-dto';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../service/usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AuthService extends DataService {
   constructor(
     http: HttpClient,
     private jwtHelper: JwtHelperService,
-    private router: Router
+    private router: Router,
+    private usuarioService: UsuarioService
   ) {
     super(environment.backEndUrl, http);
   }
@@ -58,6 +60,10 @@ export class AuthService extends DataService {
     }
 
     const isExpired = this.jwtHelper.isTokenExpired(token);
+    if (!isExpired) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      this.usuarioService.usuario = decodedToken.usuario;
+    }
     console.log('Usuário está logado: ' + !isExpired);
     return !isExpired;
   }

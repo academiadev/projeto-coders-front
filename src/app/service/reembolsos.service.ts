@@ -109,7 +109,7 @@ export class ReembolsosService extends DataService {
     const param: ParamValue[] = [
       { key: 'usuarioId', value: this.usuarioService.usuario.id }
     ];
-    
+
     return this.http.get(environment.urls.reembolso.buscarReembolsosUsuario,
       this.getHeadersParams(param)
     );
@@ -127,13 +127,10 @@ export class ReembolsosService extends DataService {
   }
 
   buscarReembolsosEmpresa(): Observable<any> {
-    console.log('buscarReembolsosEmpresa');
-    console.log(this.usuarioService.usuario);
-    console.log(this.usuarioService.usuario.empresa.id);
     const param: ParamValue[] = [
       { key: 'empresaId', value: this.usuarioService.usuario.empresa.id }
     ];
-    
+
     return this.http.get(environment.urls.reembolso.buscarReembolsosEmpresa,
       this.getHeadersParams(param)
     );

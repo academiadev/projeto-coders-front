@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       console.log(token.accessToken);
       const decodedToken = this.jwtHelper.decodeToken(token.accessToken);
       console.log(decodedToken);
-      
+
       this.usuarioService.usuario = decodedToken.usuario;
 
       /* Onde é possível retornar uma url válida pelo queryParamMap? */
