@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ReembolsoDTO } from '../dto/reembolso-dto';
 import { UsuarioService } from './usuario.service';
 import { environment } from './../../environments/environment';
@@ -98,11 +98,18 @@ export class ReembolsosService extends DataService {
     }
   }
 
-  adicionaReembolso(reembolso: ReembolsoDTO, file: any): Observable<any> {
+  adicionaReembolso(reembolso: ReembolsoDTO, file: File): Observable<any> {
     reembolso.id = null;
     reembolso.idUsuario = this.usuarioService.usuario.id;
     reembolso.status = '';
     return this.http.post(environment.urls.reembolso.cadastrar, reembolso, this.getHeaders());
+  }
+
+  adicionarArquivo(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.http.post('http://localhost:8080/post', formData, this.getHeaders2());
   }
 
   buscarReembolsosUsuario(): Observable<any> {
