@@ -66,7 +66,8 @@ export class DashboardAdminComponent implements OnInit {
   buscaReembolsos() {
     this.reembolsoService.buscarReembolsosEmpresa().subscribe((res) => {
       this.reembolsos = <ReembolsoDTO[]>res;
-      console.log(res);
+      this.reembolsos = this.reembolsos.sort((one, two) => (one.status > two.status ? -1 : 1));
+      this.reembolsoService.reem = this.reembolsos;
     });
   }
 

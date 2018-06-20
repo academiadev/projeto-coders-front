@@ -39,7 +39,7 @@ export class DashboardUsuarioComponent implements OnInit {
 
   reembolsos: ReembolsoDTO[];
 
-  fileSelected: File = null;
+  fileSelected: any;
 
   reembolsoSelecionado: any;
 
@@ -116,27 +116,19 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    // let reader = new FileReader();
-
-    // if(event.target.files && event.target.files.length) {
-    //   const [file] = event.target.files;
-    //   reader.readAsDataURL(file);
-    //   reader.onload = () => {
-    //     this.dashBoardUserForm.patchValue({
-    //       arquivoPath: reader.result
-    //     });
-
-    //     // need to run CD since file load runs outside of zone
-
-    //   };
-    // }
-
-    // this.fileSelected = <File>event.target.files[0];
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.fileSelected = reader.result.split(',')[1];
+      console.log(this.fileSelected);
+    };
   }
 
   buscarReembolsos() {
     this.reembolsoService.buscarReembolsosUsuario().subscribe((res) => {
       this.reembolsos = <ReembolsoDTO[]>res;
+      this.reembolsos = this.reembolsos.sort((one, two) => (one.status > two.status ? -1 : 1));
       this.reembolsoService.reem = this.reembolsos;
     });
   }
