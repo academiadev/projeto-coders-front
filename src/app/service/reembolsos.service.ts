@@ -109,7 +109,7 @@ export class ReembolsosService extends DataService {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
 
-    return this.http.post('http://localhost:8080/post', formData, this.getHeaders());
+    return this.http.post(environment.urls.reembolso.salvarArquivo, formData, this.getHeaders());
   }
 
   buscarReembolsosUsuario(): Observable<any> {
