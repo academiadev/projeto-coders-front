@@ -17,21 +17,16 @@ export class DataService {
         protected http: HttpClient
     ) { }
 
-    protected getHeaders2() {
+    protected getHeaders() {
         let requestHeaders = new HttpHeaders();
         requestHeaders = requestHeaders.set('Accept', 'application/json');
         requestHeaders = requestHeaders.set('Authorization', 'Bearer ' + localStorage.getItem(environment.tokenName));
         return { headers: requestHeaders };
     }
 
-    protected getHeaders() {
-        let requestHeaders = new HttpHeaders();
-        requestHeaders = requestHeaders.set('Authorization', 'Bearer ' + localStorage.getItem(environment.tokenName));
-        return { headers: requestHeaders };
-    }
-
     protected getHeadersParams(param: ParamValue[]) {
         let requestHeaders = new HttpHeaders();
+        requestHeaders = requestHeaders.set('Accept', 'application/json');
         requestHeaders = requestHeaders.set('Authorization', 'Bearer ' + localStorage.getItem(environment.tokenName));
         let params = new HttpParams();
         param.forEach(p => {

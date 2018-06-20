@@ -91,7 +91,7 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   adicionaReembolso() {
-    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value, this.fileSelected).subscribe(res => {
+    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value).subscribe(res => {
       this.buscarReembolsos();
     });
     this.reembolsoService.adicionarArquivo(this.fileSelected).subscribe(res => {

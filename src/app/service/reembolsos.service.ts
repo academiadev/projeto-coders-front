@@ -98,7 +98,7 @@ export class ReembolsosService extends DataService {
     }
   }
 
-  adicionaReembolso(reembolso: ReembolsoDTO, file: File): Observable<any> {
+  adicionaReembolso(reembolso: ReembolsoDTO): Observable<any> {
     reembolso.id = null;
     reembolso.idUsuario = this.usuarioService.usuario.id;
     reembolso.status = '';
@@ -109,7 +109,7 @@ export class ReembolsosService extends DataService {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
 
-    return this.http.post('http://localhost:8080/post', formData, this.getHeaders2());
+    return this.http.post('http://localhost:8080/post', formData, this.getHeaders());
   }
 
   buscarReembolsosUsuario(): Observable<any> {
