@@ -91,7 +91,9 @@ export class ReembolsosService extends DataService {
       this.reem[index] = novoForm.value;
       novoForm.value.id = antigoForm.id;
       novoForm.value.idUsuario = antigoForm.idUsuario;
-      novoForm.value.arquivoPath = antigoForm.arquivoPath;
+      if (!novoForm.value.arquivoPath) {
+        novoForm.value.arquivoPath = antigoForm.arquivoPath;
+      }
       novoForm.value.nomeUsuario = antigoForm.nomeUsuario;
       console.log(antigoForm);
       return this.http.post(environment.urls.reembolso.editar, novoForm.value, this.getHeaders());

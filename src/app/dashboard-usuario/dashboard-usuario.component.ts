@@ -114,12 +114,27 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   editarReembolso() {
-    this.reembolsoService.editarReembolso(
-      this.dashBoardUserForm,
-      this.reembolsoSelecionado
-    ).subscribe((res) => {
-      toast('Reembolso editado!', 2000, 'rounded');
-    });
+    if (this.fileSelected) {
+      console.log(this.fileSelected);
+      this.reembolsoService.adicionarArquivo(this.fileSelected).subscribe(res => {
+        this.dashBoardUserForm.patchValue({
+          arquivoPath: res.path
+        });
+        this.reembolsoService.editarReembolso(
+          this.dashBoardUserForm,
+          this.reembolsoSelecionado
+        ).subscribe((resp) => {
+          toast('Reembolso editado!', 2000, 'rounded');
+        });
+      });
+    } else {
+      this.reembolsoService.editarReembolso(
+        this.dashBoardUserForm,
+        this.reembolsoSelecionado
+      ).subscribe((res) => {
+        toast('Reembolso editado!', 2000, 'rounded');
+      });
+    }
   }
 
   onFileSelected(event) {
