@@ -30,6 +30,7 @@ export class DashboardAdminComponent implements OnInit {
   data: string;
   descricao: string;
   categoria: string;
+  arquivoPath: string;
 
   reembolsoSelecionado: ReembolsoDTO;
 
@@ -47,6 +48,7 @@ export class DashboardAdminComponent implements OnInit {
     this.data = reembo.data;
     this.descricao = reembo.descricao;
     this.categoria = reembo.categoria;
+    this.arquivoPath = reembo.arquivoPath;
     this.modalActions.emit( {action: 'modal', params: ['open']});
   }
 
@@ -56,7 +58,7 @@ export class DashboardAdminComponent implements OnInit {
 
   setStatusReembolso(status: string) {
     this.reembolsoService.alterarStatusReembolso(
-      this.reembolsoSelecionado.id.toString(), 
+      this.reembolsoSelecionado.id.toString(),
       status
     ).subscribe((res) => {
       this.buscaReembolsos();
@@ -68,6 +70,15 @@ export class DashboardAdminComponent implements OnInit {
       this.reembolsos = <ReembolsoDTO[]>res;
       this.reembolsos = this.reembolsos.sort((one, two) => (one.status > two.status ? -1 : 1));
       this.reembolsoService.reem = this.reembolsos;
+    });
+  }
+
+  downloadFile() {
+    const arrayPath = this.arquivoPath.split('\\');
+    const fileName = arrayPath[arrayPath.length - 1];
+    console.log(fileName);
+    this.reembolsoService.downloadArquivo(fileName).subscribe(res => {
+      console.log(res);
     });
   }
 

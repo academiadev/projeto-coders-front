@@ -112,6 +112,14 @@ export class ReembolsosService extends DataService {
     return this.http.post(environment.urls.reembolso.salvarArquivo, formData, this.getHeaders());
   }
 
+  downloadArquivo(fileName: any): Observable<any> {
+    const param: ParamValue[] = [
+      { key: 'fileName', value: fileName }
+    ];
+
+    return this.http.get(environment.urls.reembolso.downloadArquivo, this.getHeadersParams(param));
+  }
+
   buscarReembolsosUsuario(): Observable<any> {
     const param: ParamValue[] = [
       { key: 'usuarioId', value: this.usuarioService.usuario.id }
