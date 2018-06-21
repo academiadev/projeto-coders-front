@@ -64,13 +64,13 @@ export class DashboardUsuarioComponent implements OnInit {
     console.log(reembo);
     if (reembo.status === 'waiting') {
       this.reembolsoSelecionado = reembo;
+      const arrayPath = reembo.arquivoPath.split('\\');
       this.dashBoardUserForm.setValue({
         descricao: reembo.descricao,
         categoria: reembo.categoria,
         data: reembo.data,
         valor: reembo.valor.replace('.', ','),
-        arquivoPath: null,
-        fileName: reembo.arquivoPath
+        arquivoPath: arrayPath[arrayPath.length - 1]
       });
       this.modalActionsEdit.emit( {action: 'modal', params: ['open']});
     }
@@ -92,13 +92,16 @@ export class DashboardUsuarioComponent implements OnInit {
 
   adicionaReembolso() {
     this.reembolsoService.adicionarArquivo(this.fileSelected).subscribe(res => {
-      console.log('CARREGOU');
-      console.log(res);
+      console.log(res.path);
+      this.dashBoardUserForm.patchValue({
+        arquivoPath: res.path
+      });
+      console.log(this.dashBoardUserForm.value);
+      this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value).subscribe(resp => {
+        this.buscarReembolsos();
+      });
+      this.limparModal(this.dashBoardUserForm);
     });
-    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value).subscribe(res => {
-      this.buscarReembolsos();
-    });
-    this.limparModal(this.dashBoardUserForm);
   }
 
   excluirReembolso() {
@@ -141,8 +144,7 @@ export class DashboardUsuarioComponent implements OnInit {
       categoria: new FormControl('', [Validators.required]),
       data : new FormControl('', [Validators.required]),
       valor : new FormControl('', [Validators.required]),
-      arquivoPath : new FormControl(null, [Validators.required]),
-      fileName : new FormControl('')
+      arquivoPath : new FormControl('')
     });
   }
 
@@ -151,6 +153,5 @@ export class DashboardUsuarioComponent implements OnInit {
   get data(): any { return this.dashBoardUserForm.get('data'); }
   get valor(): any { return this.dashBoardUserForm.get('valor'); }
   get arquivoPath(): any { return this.dashBoardUserForm.get('arquivoPath'); }
-  get fileName(): any { return this.dashBoardUserForm.get('fileName'); }
 
 }
