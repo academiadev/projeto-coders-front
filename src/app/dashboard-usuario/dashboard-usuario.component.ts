@@ -91,11 +91,12 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   adicionaReembolso() {
-    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value).subscribe(res => {
-      this.buscarReembolsos();
-    });
     this.reembolsoService.adicionarArquivo(this.fileSelected).subscribe(res => {
       console.log('CARREGOU');
+      console.log(res);
+    });
+    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value).subscribe(res => {
+      this.buscarReembolsos();
     });
     this.limparModal(this.dashBoardUserForm);
   }
