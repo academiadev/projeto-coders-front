@@ -1,6 +1,7 @@
 .signin {
   width: 70%;
-  max-width: 500px;
+  max-width: 450px;
+  min-width: 300px;
   padding: 0px;
   margin: auto;
   box-shadow: 0px 0px 10px 1px grey;
