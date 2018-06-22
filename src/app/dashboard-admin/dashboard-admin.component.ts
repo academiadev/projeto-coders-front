@@ -23,6 +23,8 @@ export class DashboardAdminComponent implements OnInit {
 
   fileUpload: string;
 
+  arquivoPDF = false;
+
   categorias: any[];
 
   reembolsos: ReembolsoDTO[];
@@ -56,6 +58,12 @@ export class DashboardAdminComponent implements OnInit {
 
   closeModal() {
     this.modalActions.emit({action: 'modal', params: ['close']});
+    this.resetarVariaveisModal();
+  }
+
+  resetarVariaveisModal() {
+    this.fileUpload = null;
+    this.arquivoPDF = false;
   }
 
   setStatusReembolso(status: string) {
@@ -64,6 +72,7 @@ export class DashboardAdminComponent implements OnInit {
       status
     ).subscribe((res) => {
       this.buscaReembolsos();
+      this.resetarVariaveisModal();
     });
   }
 
@@ -87,7 +96,11 @@ export class DashboardAdminComponent implements OnInit {
     } else {
       const arrayPath = this.arquivoPath.split('\\');
       const fileName = arrayPath[arrayPath.length - 1];
-      this.fileUpload = 'http://localhost:8080/downloadArquivo?fileName=' + fileName;
+      if (fileName.indexOf('pdf') >= 0) {
+        this.arquivoPDF = true;
+      } else {
+        this.fileUpload = 'http://localhost:8080/downloadArquivo?fileName=' + fileName;
+      }
     }
   }
 

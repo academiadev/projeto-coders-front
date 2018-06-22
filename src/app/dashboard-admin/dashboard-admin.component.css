@@ -106,3 +106,7 @@ main {
   background-color: #fafafa;
   color: #2687e9;
 }
+.alert-message {
+  color: red;
+  font-size: 14px;
+}
