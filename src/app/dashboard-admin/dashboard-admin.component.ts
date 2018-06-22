@@ -13,13 +13,15 @@ export class DashboardAdminComponent implements OnInit {
 
   sidenavActions: EventEmitter<any>;
   sidenavParams: any[];
-  modalActions = new EventEmitter<string|MaterializeAction>();
+  modalActions = new EventEmitter<string | MaterializeAction>();
 
   modalParams = [
     {
       dismissible: false
     }
   ];
+
+  fileUpload: string;
 
   categorias: any[];
 
@@ -73,13 +75,16 @@ export class DashboardAdminComponent implements OnInit {
     });
   }
 
-  downloadFile() {
+  getUrl(): string {
     const arrayPath = this.arquivoPath.split('\\');
     const fileName = arrayPath[arrayPath.length - 1];
-    console.log(fileName);
-    this.reembolsoService.downloadArquivo(fileName).subscribe(res => {
-      console.log(res);
-    });
+    return 'http://localhost:8080/downloadArquivo?fileName=' + fileName;
+  }
+
+  mostrarImagem() {
+    const arrayPath = this.arquivoPath.split('\\');
+    const fileName = arrayPath[arrayPath.length - 1];
+    this.fileUpload = 'http://localhost:8080/downloadArquivo?fileName=' + fileName;
   }
 
   copiaCodigoEmpresa() {

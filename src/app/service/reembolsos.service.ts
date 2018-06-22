@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ReembolsoDTO } from '../dto/reembolso-dto';
 import { UsuarioService } from './usuario.service';
 import { environment } from './../../environments/environment';
@@ -11,7 +11,7 @@ import { ParamValue } from './param-value';
 export class ReembolsosService extends DataService {
 
   constructor(http: HttpClient,
-              private usuarioService: UsuarioService
+    private usuarioService: UsuarioService
   ) {
     super(environment.backEndUrl, http);
   }
@@ -115,11 +115,9 @@ export class ReembolsosService extends DataService {
   }
 
   downloadArquivo(fileName: any): Observable<any> {
-    const param: ParamValue[] = [
-      { key: 'fileName', value: fileName }
-    ];
-
-    return this.http.get(environment.urls.reembolso.downloadArquivo, this.getHeadersParams(param));
+    let params = new HttpParams();
+    params.set('fileName', fileName);
+    return this.http.get(environment.urls.reembolso.downloadArquivo, { headers: new HttpHeaders(), params: params, responseType: 'blob' });
   }
 
   buscarReembolsosUsuario(): Observable<any> {
