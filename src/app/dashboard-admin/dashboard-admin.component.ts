@@ -82,9 +82,13 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   mostrarImagem() {
-    const arrayPath = this.arquivoPath.split('\\');
-    const fileName = arrayPath[arrayPath.length - 1];
-    this.fileUpload = 'http://localhost:8080/downloadArquivo?fileName=' + fileName;
+    if (this.fileUpload) {
+      this.fileUpload = null;
+    } else {
+      const arrayPath = this.arquivoPath.split('\\');
+      const fileName = arrayPath[arrayPath.length - 1];
+      this.fileUpload = 'http://localhost:8080/downloadArquivo?fileName=' + fileName;
+    }
   }
 
   copiaCodigoEmpresa() {

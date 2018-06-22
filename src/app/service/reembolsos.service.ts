@@ -115,7 +115,7 @@ export class ReembolsosService extends DataService {
   }
 
   downloadArquivo(fileName: any): Observable<any> {
-    let params = new HttpParams();
+    const params = new HttpParams();
     params.set('fileName', fileName);
     return this.http.get(environment.urls.reembolso.downloadArquivo, { headers: new HttpHeaders(), params: params, responseType: 'blob' });
   }

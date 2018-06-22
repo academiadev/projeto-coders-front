@@ -56,17 +56,15 @@
           </div>
 
           <div class="input-field col s12">
-            <button class="btn btn-primary btn-block" name="download" (click)="mostrarImagem()">MOSTRAR IMAGEM
-              <i class="material-icons right">vertical_align_bottom</i>
-            </button>
+            <div class="col s3">
+              <button class="mostrar-nota" (click)="mostrarImagem()" >Mostrar nota</button>
+            </div>
+          </div>
+          <div *ngIf="fileUpload != null" class="input-field col s12">
+            <img src="{{fileUpload}}" alt="{{fileUpload}}" style="max-width:350px" />
           </div>
           <div class="input-field col s12">
-            <a class="btn btn-primary btn-block" name="download" [href]="getUrl()" download>DOWNLOAD NOTA
-              <i class="material-icons right">vertical_align_bottom</i>
-            </a>
-          </div>
-          <div *ngIf="fileUpload != null">
-            <img src="{{fileUpload}}" alt="{{fileUpload}}" style="max-width:350px" />
+            <a class="btn btn-primary btn-block" name="download" [href]="getUrl()" download>DOWNLOAD NOTA</a>
           </div>
         </form>
       </div>
