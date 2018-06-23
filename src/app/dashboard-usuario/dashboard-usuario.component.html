@@ -34,9 +34,9 @@
     <div class="modal-content">
       <div class="row">
         <h4 class="col s12">Solicitar Reembolso</h4>
-        <p class="col s12">Preencha as informações abaixo para solicitar reembolso:</p>  
+        <p class="col s12">Preencha as informações abaixo para solicitar reembolso:</p>
 
-        <form name="criaReembolsoForm" id="formulario" [formGroup]="dashBoardUserForm" (ngSubmit)="onSubmit(dashBoardUserForm.value)">
+        <form name="criaReembolsoForm" id="formulario" [formGroup]="dashBoardUserForm">
           <div class="input-field col s12">
             <input id="descricao" type="text" name="descricao" formControlName="descricao"
             [class.valid]="descricao.valid" [class.invalid]="descricao.invalid && descricao.touched" autocomplete="off">
@@ -44,7 +44,7 @@
           </div>
 
           <div class="input-field col s6">
-            <select materialize="material_select" [materializeSelectOptions]="selectOptions" name="categoria" formControlName="categoria">
+            <select materialize="material_select" name="categoria" formControlName="categoria">
               <option value="" disabled selected>Selecione uma categoria</option>
               <option *ngFor="let categoria of categorias">{{categoria.nome}}</option>
             </select>
@@ -93,9 +93,9 @@
     <div class="modal-content">
       <div class="row">
         <h4 class="col s12">Editar Reembolso</h4>
-        <p class="col s12">Preencha as informações abaixo para solicitar reembolso:</p>  
+        <p class="col s12">Preencha as informações abaixo para solicitar reembolso:</p>
 
-        <form name="criaReembolsoForm" id="formulario" [formGroup]="dashBoardUserForm" (ngSubmit)="onSubmit(dashBoardUserForm.value)">
+        <form name="criaReembolsoForm" id="formulario" [formGroup]="dashBoardUserForm">
           <div class="input-field col s12">
             <input id="descricao" type="text" name="descricao" formControlName="descricao" placeholder=""
             [class.valid]="descricao.valid" [class.invalid]="descricao.invalid && descricao.touched" autocomplete="off">
@@ -103,7 +103,7 @@
           </div>
 
           <div class="input-field col s6">
-            <select materialize="material_select" [materializeSelectOptions]="selectOptions" name="categoria" formControlName="categoria">
+            <select materialize="material_select" name="categoria" formControlName="categoria">
               <option value="" disabled selected>Selecione uma categoria</option>
               <option *ngFor="let categoria of categorias">{{categoria.nome}}</option>
             </select>
