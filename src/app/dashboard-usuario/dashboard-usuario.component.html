@@ -69,10 +69,10 @@
           <div class="file-field input-field col s12">
             <div class="btn button-upload">
               <span>ADICIONAR ARQUIVO</span>
-              <input type="file" accept="image/jpeg,image/png,application/pdf,image" (change)="onFileSelected($event)" formControlName="arquivoPath"/>
+              <input type="file" accept="image/jpeg,image/png,application/pdf,image" (change)="onFileSelected($event)"/>
             </div>
             <div class="file-path-wrapper">
-              <input class="file-path" type="text" formControlName="fileName">
+              <input class="file-path" type="text" formControlName="arquivoPath">
             </div>
           </div>
         </form>
@@ -130,10 +130,10 @@
           <div class="file-field input-field col s12">
             <div class="btn button-upload">
               <span>ADICIONAR ARQUIVO</span>
-              <input type="file" accept="image/jpeg,image/png,application/pdf,image" (change)="onFileSelected($event)" formControlName="file"/>
+              <input type="file" accept="image/jpeg,image/png,application/pdf,image" (change)="onFileSelected($event)"/>
             </div>
             <div class="file-path-wrapper">
-              <input class="file-path" type="text" formControlName="fileName">
+              <input class="file-path" type="text" formControlName="arquivoPath">
             </div>
           </div>
         </form>

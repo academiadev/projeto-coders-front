@@ -39,7 +39,7 @@ export class DashboardUsuarioComponent implements OnInit {
 
   reembolsos: ReembolsoDTO[];
 
-  fileSelected: any;
+  fileSelected: File;
 
   reembolsoSelecionado: any;
 
@@ -64,13 +64,13 @@ export class DashboardUsuarioComponent implements OnInit {
     console.log(reembo);
     if (reembo.status === 'waiting') {
       this.reembolsoSelecionado = reembo;
+      const arrayPath = reembo.arquivoPath.split('\\');
       this.dashBoardUserForm.setValue({
         descricao: reembo.descricao,
         categoria: reembo.categoria,
         data: reembo.data,
         valor: reembo.valor.replace('.', ','),
-        arquivoPath: null,
-        fileName: reembo.arquivoPath
+        arquivoPath: arrayPath[arrayPath.length - 1]
       });
       this.modalActionsEdit.emit( {action: 'modal', params: ['open']});
     }
@@ -91,10 +91,17 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   adicionaReembolso() {
-    this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value, this.fileSelected).subscribe(res => {
-      this.buscarReembolsos();
+    this.reembolsoService.adicionarArquivo(this.fileSelected).subscribe(res => {
+      console.log(res.path);
+      this.dashBoardUserForm.patchValue({
+        arquivoPath: res.path
+      });
+      console.log(this.dashBoardUserForm.value);
+      this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value).subscribe(resp => {
+        this.buscarReembolsos();
+      });
+      this.limparModal(this.dashBoardUserForm);
     });
-    this.limparModal(this.dashBoardUserForm);
   }
 
   excluirReembolso() {
@@ -107,22 +114,31 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   editarReembolso() {
-    this.reembolsoService.editarReembolso(
-      this.dashBoardUserForm,
-      this.reembolsoSelecionado
-    ).subscribe((res) => {
-      toast('Reembolso editado!', 2000, 'rounded');
-    });
+    if (this.fileSelected) {
+      console.log(this.fileSelected);
+      this.reembolsoService.adicionarArquivo(this.fileSelected).subscribe(res => {
+        this.dashBoardUserForm.patchValue({
+          arquivoPath: res.path
+        });
+        this.reembolsoService.editarReembolso(
+          this.dashBoardUserForm,
+          this.reembolsoSelecionado
+        ).subscribe((resp) => {
+          toast('Reembolso editado!', 2000, 'rounded');
+        });
+      });
+    } else {
+      this.reembolsoService.editarReembolso(
+        this.dashBoardUserForm,
+        this.reembolsoSelecionado
+      ).subscribe((res) => {
+        toast('Reembolso editado!', 2000, 'rounded');
+      });
+    }
   }
 
   onFileSelected(event) {
-    let reader = new FileReader();
-    let file = event.target.files[0];
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.fileSelected = reader.result.split(',')[1];
-      console.log(this.fileSelected);
-    };
+    this.fileSelected = event.target.files[0];
   }
 
   buscarReembolsos() {
@@ -143,8 +159,7 @@ export class DashboardUsuarioComponent implements OnInit {
       categoria: new FormControl('', [Validators.required]),
       data : new FormControl('', [Validators.required]),
       valor : new FormControl('', [Validators.required]),
-      arquivoPath : new FormControl(null, [Validators.required]),
-      fileName : new FormControl('')
+      arquivoPath : new FormControl('')
     });
   }
 
@@ -153,6 +168,5 @@ export class DashboardUsuarioComponent implements OnInit {
   get data(): any { return this.dashBoardUserForm.get('data'); }
   get valor(): any { return this.dashBoardUserForm.get('valor'); }
   get arquivoPath(): any { return this.dashBoardUserForm.get('arquivoPath'); }
-  get fileName(): any { return this.dashBoardUserForm.get('fileName'); }
 
 }

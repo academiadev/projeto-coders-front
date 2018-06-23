@@ -4,7 +4,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
 import { AtualizaPerfilService } from '../service/atualiza-perfil.service';
 import { UsuarioService } from '../service/usuario.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { UsuarioDTO } from '../dto/usuario-dto';
+import { TokenDTO } from '../dto/token-dto';
+import { environment } from './../../environments/environment';
 
 @Component({
   selector: 'ca-perfil',
@@ -20,7 +23,8 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private ataualizaPerfilService: AtualizaPerfilService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private jwtHelper: JwtHelperService
   ) {
     this.sidenavActions = new EventEmitter<any>();
     this.sidenavParams = [{
@@ -29,7 +33,13 @@ export class PerfilComponent implements OnInit {
   }
 
   onSubmit(form: any) {
-    this.ataualizaPerfilService.atualiza(form).subscribe(res => {
+    this.ataualizaPerfilService.atualiza(form).subscribe((token: TokenDTO) => {
+      localStorage.setItem(environment.tokenName, token.accessToken);
+      console.log(token.accessToken);
+      const decodedToken = this.jwtHelper.decodeToken(token.accessToken);
+      console.log(decodedToken);
+
+      this.usuarioService.usuario = decodedToken.usuario;
       /* Ao atualizar o email o token se perde e invalida a sessão */
       toast('Perfil atualizado!', 2000, 'rounded');
     });

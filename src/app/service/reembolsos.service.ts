@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ReembolsoDTO } from '../dto/reembolso-dto';
 import { UsuarioService } from './usuario.service';
 import { environment } from './../../environments/environment';
@@ -11,7 +11,7 @@ import { ParamValue } from './param-value';
 export class ReembolsosService extends DataService {
 
   constructor(http: HttpClient,
-              private usuarioService: UsuarioService
+    private usuarioService: UsuarioService
   ) {
     super(environment.backEndUrl, http);
   }
@@ -91,18 +91,33 @@ export class ReembolsosService extends DataService {
       this.reem[index] = novoForm.value;
       novoForm.value.id = antigoForm.id;
       novoForm.value.idUsuario = antigoForm.idUsuario;
-      novoForm.value.arquivoPath = antigoForm.arquivoPath;
+      if (!novoForm.value.arquivoPath) {
+        novoForm.value.arquivoPath = antigoForm.arquivoPath;
+      }
       novoForm.value.nomeUsuario = antigoForm.nomeUsuario;
       console.log(antigoForm);
       return this.http.post(environment.urls.reembolso.editar, novoForm.value, this.getHeaders());
     }
   }
 
-  adicionaReembolso(reembolso: ReembolsoDTO, file: any): Observable<any> {
+  adicionaReembolso(reembolso: ReembolsoDTO): Observable<any> {
     reembolso.id = null;
     reembolso.idUsuario = this.usuarioService.usuario.id;
     reembolso.status = '';
     return this.http.post(environment.urls.reembolso.cadastrar, reembolso, this.getHeaders());
+  }
+
+  adicionarArquivo(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.http.post(environment.urls.reembolso.salvarArquivo, formData, this.getHeaders());
+  }
+
+  downloadArquivo(fileName: any): Observable<any> {
+    const params = new HttpParams();
+    params.set('fileName', fileName);
+    return this.http.get(environment.urls.reembolso.downloadArquivo, { headers: new HttpHeaders(), params: params, responseType: 'blob' });
   }
 
   buscarReembolsosUsuario(): Observable<any> {

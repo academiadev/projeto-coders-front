@@ -13,13 +13,17 @@ export class DashboardAdminComponent implements OnInit {
 
   sidenavActions: EventEmitter<any>;
   sidenavParams: any[];
-  modalActions = new EventEmitter<string|MaterializeAction>();
+  modalActions = new EventEmitter<string | MaterializeAction>();
 
   modalParams = [
     {
       dismissible: false
     }
   ];
+
+  fileUpload: string;
+
+  arquivoPDF = false;
 
   categorias: any[];
 
@@ -30,6 +34,7 @@ export class DashboardAdminComponent implements OnInit {
   data: string;
   descricao: string;
   categoria: string;
+  arquivoPath: string;
 
   reembolsoSelecionado: ReembolsoDTO;
 
@@ -47,19 +52,27 @@ export class DashboardAdminComponent implements OnInit {
     this.data = reembo.data;
     this.descricao = reembo.descricao;
     this.categoria = reembo.categoria;
+    this.arquivoPath = reembo.arquivoPath;
     this.modalActions.emit( {action: 'modal', params: ['open']});
   }
 
   closeModal() {
     this.modalActions.emit({action: 'modal', params: ['close']});
+    this.resetarVariaveisModal();
+  }
+
+  resetarVariaveisModal() {
+    this.fileUpload = null;
+    this.arquivoPDF = false;
   }
 
   setStatusReembolso(status: string) {
     this.reembolsoService.alterarStatusReembolso(
-      this.reembolsoSelecionado.id.toString(), 
+      this.reembolsoSelecionado.id.toString(),
       status
     ).subscribe((res) => {
       this.buscaReembolsos();
+      this.resetarVariaveisModal();
     });
   }
 
@@ -69,6 +82,26 @@ export class DashboardAdminComponent implements OnInit {
       this.reembolsos = this.reembolsos.sort((one, two) => (one.status > two.status ? -1 : 1));
       this.reembolsoService.reem = this.reembolsos;
     });
+  }
+
+  getUrl(): string {
+    const arrayPath = this.arquivoPath.split('\\');
+    const fileName = arrayPath[arrayPath.length - 1];
+    return 'http://localhost:8080/downloadArquivo?fileName=' + fileName;
+  }
+
+  mostrarImagem() {
+    if (this.fileUpload) {
+      this.fileUpload = null;
+    } else {
+      const arrayPath = this.arquivoPath.split('\\');
+      const fileName = arrayPath[arrayPath.length - 1];
+      if (fileName.indexOf('pdf') >= 0) {
+        this.arquivoPDF = true;
+      } else {
+        this.fileUpload = 'http://localhost:8080/downloadArquivo?fileName=' + fileName;
+      }
+    }
   }
 
   copiaCodigoEmpresa() {

@@ -27,7 +27,9 @@ export const environment = {
       buscarReembolsosUsuario: 'http://localhost:8080/listaReembolsosUsuario',
       buscarReembolsosEmpresa: 'http://localhost:8080/listaReembolsosEmpresa',
       alteraStatusReembolso: 'http://localhost:8080/alterarStatusReembolso',
-      excluir: 'http://localhost:8080/excluirReembolso'
+      excluir: 'http://localhost:8080/excluirReembolso',
+      salvarArquivo: 'http://localhost:8080/salvarArquivo',
+      downloadArquivo: 'http://localhost:8080/downloadArquivo'
     }
   }
 };

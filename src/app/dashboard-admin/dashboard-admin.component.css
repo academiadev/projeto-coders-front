@@ -100,3 +100,13 @@ main {
   background-color: #fafafa;
   color: #2687e9;
 }
+.mostrar-nota {
+  font-size: 15px;
+  border: none;
+  background-color: #fafafa;
+  color: #2687e9;
+}
+.alert-message {
+  color: red;
+  font-size: 14px;
+}

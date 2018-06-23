@@ -1,4 +1,4 @@
-<ca-navigator titulo="Reembolso" ></ca-navigator>
+<ca-navigator titulo="Reembolso"></ca-navigator>
 
 <main>
   <div class="container">
@@ -56,9 +56,18 @@
           </div>
 
           <div class="input-field col s12">
-            <button class="btn btn-primary btn-block" name="download">DOWNLOAD NOTA
-              <i class="material-icons right">vertical_align_bottom</i>
-            </button>
+            <div class="col s3">
+              <button class="mostrar-nota" (click)="mostrarImagem()" >Mostrar nota</button>
+            </div>
+          </div>
+          <div class="alert-message input-field col s12" *ngIf="arquivoPDF != false">
+            <p>É necessário baixar arquivos PDF</p>
+          </div> 
+          <div *ngIf="fileUpload != null" class="input-field col s12">
+            <img src="{{fileUpload}}" alt="{{fileUpload}}" style="max-width:350px" />
+          </div>
+          <div class="input-field col s12">
+            <a class="btn btn-primary btn-block" name="download" [href]="getUrl()" download>DOWNLOAD NOTA</a>
           </div>
         </form>
       </div>
@@ -66,13 +75,13 @@
     <div class="modal-footer">
       <div class="row modal-action-buttons">
         <div class="col s3">
-            <button class="aprovar-button modal-action modal-close" (click)="setStatusReembolso('APROVADO')">APROVAR</button>
+          <button class="aprovar-button modal-action modal-close" (click)="setStatusReembolso('APROVADO')">APROVAR</button>
         </div>
         <div class="col s3">
-            <button class="recusar-button modal-action modal-close" (click)="setStatusReembolso('RECUSADO')">RECUSAR</button>
+          <button class="recusar-button modal-action modal-close" (click)="setStatusReembolso('RECUSADO')">RECUSAR</button>
         </div>
         <div class="col l3 offset-l3">
-            <button class="cancelar-button modal-action modal-close" (click)="closeModal()">CANCELAR</button>
+          <button class="cancelar-button modal-action modal-close" (click)="closeModal()">CANCELAR</button>
         </div>
       </div>
     </div>
