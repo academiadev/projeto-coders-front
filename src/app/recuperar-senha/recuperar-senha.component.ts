@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecupararSenhaService } from '../service/recuparar-senha.service';
+import { RecuperarSenhaService } from '../service/recuperar-senha.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
 import { Router } from '@angular/router';
@@ -13,12 +13,14 @@ export class RecuperarSenhaComponent implements OnInit {
 
   recuperarForm: FormGroup;
 
-  constructor(private recupararService: RecupararSenhaService,
+  constructor(private recupararService: RecuperarSenhaService,
               private router: Router) { }
 
   onSubmit(form: any) {
-    this.recupararService.recuparar(form);
-    this.router.navigate(['/emailEnviado']);
+    this.recupararService.recuperar(form).subscribe((res) => {
+      console.log(res);
+    });
+    // this.router.navigate(['/emailEnviado']);
   }
 
   ngOnInit() {

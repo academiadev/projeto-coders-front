@@ -33,7 +33,7 @@ import { SenhaRedefinidaComponent } from './senha-redefinida/senha-redefinida.co
 import { ReembolsosService } from './service/reembolsos.service';
 import { LoginService } from './service/login.service';
 import { CadastroService } from './service/cadastro.service';
-import { RecupararSenhaService } from './service/recuparar-senha.service';
+import { RecuperarSenhaService } from './service/recuperar-senha.service';
 import { RedefinirSenhaService } from './service/redefinir-senha.service';
 import { AtualizaPerfilService } from './service/atualiza-perfil.service';
 import { UsuarioService } from './service/usuario.service';
@@ -89,7 +89,7 @@ export function tokenGetter() {
     ReembolsosService,
     LoginService,
     CadastroService,
-    RecupararSenhaService,
+    RecuperarSenhaService,
     RedefinirSenhaService,
     AtualizaPerfilService,
     UsuarioService,
