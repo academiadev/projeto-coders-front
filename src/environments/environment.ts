@@ -19,7 +19,8 @@ export const environment = {
       listar: 'http://localhost:8080/listarUsuarioEmpresa',
       editar: 'http://localhost:8080/editarUsuario',
       whoami: 'http://localhost:8080/whoami',
-      pesquisaUsuario: 'http://localhost:8080/pesquisaUsuario'
+      pesquisaUsuario: 'http://localhost:8080/pesquisaUsuario',
+      trocaSenha: 'http://localhost:8080/trocar-senha'
     },
     reembolso: {
       editar: 'http://localhost:8080/editarReembolso',

@@ -22,6 +22,7 @@
 <ul id="slide-out" class="side-nav">
   <li><div class="user-view">
     <a class="reembolso-perfil">Reembolso</a>
+    <a *ngIf="usuario.isAdmin === true" class="nome-perfil name">Código da empresa: {{empresa.codigo}}</a>
     <a class="nome-perfil name">{{usuario.nome}}</a>
     <a class="email-perfil email">{{usuario.email}}</a>
   </div></li>

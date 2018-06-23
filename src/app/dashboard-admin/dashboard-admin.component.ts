@@ -85,9 +85,11 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   getUrl(): string {
-    const arrayPath = this.arquivoPath.split('\\');
-    const fileName = arrayPath[arrayPath.length - 1];
-    return 'http://localhost:8080/downloadArquivo?fileName=' + fileName;
+    if (this.arquivoPath) {
+      const arrayPath = this.arquivoPath.split('\\');
+      const fileName = arrayPath[arrayPath.length - 1];
+      return 'http://localhost:8080/downloadArquivo?fileName=' + fileName;
+    }    
   }
 
   mostrarImagem() {
