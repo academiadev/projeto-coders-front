@@ -55,10 +55,9 @@ main {
   text-align: right;
 }
 .atualizar-group{
-  padding-bottom: 10px;
+  padding-top: 20px;
 }
 .atualizar-button {
-  padding-right: 50px;
   color: #2687e9;
   font-weight: 500;
   border: none;
