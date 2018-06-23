@@ -29,8 +29,8 @@ main {
   display: flex;
   -ms-flex-align: center;
   align-items: center;
-  padding-bottom: 40px;
-  padding-top: 70px;
+  padding-bottom: 20px;
+  padding-top: 50px;
 }
 .grafico-area {
   width: 100%;

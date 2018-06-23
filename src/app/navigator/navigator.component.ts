@@ -40,7 +40,6 @@ export class NavigatorComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.authService.logout();
     if(this.usuarioService.usuario) {
       this.usuario = this.usuarioService.usuario;
       this.empresa = this.usuarioService.usuario.empresa;
@@ -50,7 +49,7 @@ export class NavigatorComponent implements OnInit {
   }
 
   onLogout() {
-    this.authService.logoutAndRedirect();
+    this.authService.logout();
   }
 
 }
