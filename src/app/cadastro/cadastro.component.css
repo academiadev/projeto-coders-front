@@ -44,3 +44,7 @@
   padding-left: 30px;
   padding-right: 30px;
 }
+.alert-message {
+  color: red;
+  font-size: 14px;
+}
