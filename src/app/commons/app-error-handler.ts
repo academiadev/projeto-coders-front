@@ -15,8 +15,6 @@ export class AppErrorHandler implements ErrorHandler {
 
     handleError(error) {
         const auth = this.injector.get(AuthService);
-        console.log(error);
-
 
         if (error instanceof BadCredentialsError) {
             const appError: AppError = error;

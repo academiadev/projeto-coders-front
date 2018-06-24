@@ -28,10 +28,6 @@ export class CadastroService extends DataService {
     return this.cadastro;
   }
 
-  cadastrar(form: any) {
-    console.log(this.modelaCadastro(form));
-  }
-
   cadastrarUsuario(cadastro: any) {
     const param: ParamValue[] = [
       { key: 'empresaCodigo', value: cadastro.codigoEmpresa },

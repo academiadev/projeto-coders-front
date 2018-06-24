@@ -85,7 +85,6 @@ export class GastosComponent implements OnInit {
   }
 
   carregaDadosGrafico(reembolsos: ReembolsoDTO[]) {
-      console.log(reembolsos);
       reembolsos.forEach(a => {
           if (a.status === 'approved') {
             if (this.meses.indexOf(a.data.substring(3)) === -1) {

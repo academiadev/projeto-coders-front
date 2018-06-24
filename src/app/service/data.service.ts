@@ -25,9 +25,13 @@ export class DataService {
     }
 
     protected getHeadersParams(param: ParamValue[]) {
+        return this.getHeadersParamsToken(param, localStorage.getItem(environment.tokenName));
+    }
+
+    protected getHeadersParamsToken(param: ParamValue[], token: string) {
         let requestHeaders = new HttpHeaders();
         requestHeaders = requestHeaders.set('Accept', 'application/json');
-        requestHeaders = requestHeaders.set('Authorization', 'Bearer ' + localStorage.getItem(environment.tokenName));
+        requestHeaders = requestHeaders.set('Authorization', 'Bearer ' + token);
         let params = new HttpParams();
         param.forEach(p => {
             params = params.set(p.key, p.value);

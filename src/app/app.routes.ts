@@ -23,6 +23,7 @@ export const ROUTES: Routes = [
   {path: 'emailEnviado', component: EmailEnviadoComponent},
   {path: 'senhaRedefinida', component: SenhaRedefinidaComponent, canActivate: [AuthGuard]},
   {path: 'redefinirSenha', component: RedefinirSenhaComponent, canActivate: [AuthGuard]},
+  {path: 'redefinirNovaSenha', component: RedefinirSenhaComponent, canActivate: []},
   {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
   {path: 'dashboardUsuario', component: DashboardUsuarioComponent, canActivate: [AuthGuard, DashboardGuard]},
   {path: 'dashboardAdmin', component: DashboardAdminComponent, canActivate: [AuthGuard, DashboardGuard]},

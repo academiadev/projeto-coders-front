@@ -31,13 +31,10 @@ export class LoginComponent implements OnInit {
   onSubmit(login: LoginDTO) {
     this.authService.login(login).subscribe((token: TokenDTO) => {
       localStorage.setItem(environment.tokenName, token.accessToken);
-      console.log(token.accessToken);
       const decodedToken = this.jwtHelper.decodeToken(token.accessToken);
-      console.log(decodedToken);
 
       this.usuarioService.usuario = decodedToken.usuario;
 
-      /* Onde é possível retornar uma url válida pelo queryParamMap? */
       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
       this.router.navigate([returnUrl || '/dashboardAdmin']);
     },

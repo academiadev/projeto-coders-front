@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { toast } from 'angular2-materialize';
 import { CustomValidators } from '../validators/inputs.validators';
 import { RedefinirSenhaService } from '../service/redefinir-senha.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TokenDTO } from '../dto/token-dto';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from './../../environments/environment';
@@ -18,20 +18,34 @@ export class RedefinirSenhaComponent implements OnInit {
 
   redefinirForm: FormGroup;
 
+  token: string;
+
   constructor(private redefinirService : RedefinirSenhaService,
     private router : Router,
     private jwtHelper: JwtHelperService,
-    private usuarioService: UsuarioService) { }
+    private usuarioService: UsuarioService,
+    private route: ActivatedRoute) { }
 
   onSubmit(form: any) {
-    this.redefinirService.redefinir(form.senha).subscribe((token: TokenDTO) => {
-      localStorage.setItem(environment.tokenName, token.accessToken);
-      const decodedToken = this.jwtHelper.decodeToken(token.accessToken);
+    if (this.token) {
+      this.redefinirService.redefinirComToken(form.senha, this.token).subscribe((token: TokenDTO) => {
+        this.salvaTokenRedireciona(token);
+      });
+    }
+    else {
+      this.redefinirService.redefinir(form.senha).subscribe((token: TokenDTO) => {
+        this.salvaTokenRedireciona(token);
+      });
+    }
+  }
 
-      this.usuarioService.usuario = decodedToken.usuario;
-      toast('Senha atualizada!', 2000, 'rounded');
-      this.router.navigate(['/']);
-    });
+  salvaTokenRedireciona(token: TokenDTO) {
+    localStorage.setItem(environment.tokenName, token.accessToken);
+    const decodedToken = this.jwtHelper.decodeToken(token.accessToken);
+
+    this.usuarioService.usuario = decodedToken.usuario;
+    toast('Senha atualizada!', 2000, 'rounded');
+    this.router.navigate(['/']);
   }
 
   ngOnInit() {
@@ -39,6 +53,11 @@ export class RedefinirSenhaComponent implements OnInit {
       senha: new FormControl('', [Validators.required, CustomValidators.senhaValidator]),
       senhaRepetida: new FormControl('', [Validators.required, CustomValidators.senhaValidator])
     }, CustomValidators.Match('senha', 'senhaRepetida'));
+
+    const token = this.route.snapshot.queryParamMap.get('token');
+    if (token) {
+      this.token = token;
+    }
   }
 
   get senhaRepetida(): any { return this.redefinirForm.get('senhaRepetida'); }

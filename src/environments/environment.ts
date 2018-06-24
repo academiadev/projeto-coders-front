@@ -10,6 +10,7 @@ export const environment = {
     auth: {
       login: 'http://localhost:8080/login',
       refresh: 'http://localhost:8080/refresh',
+      recuperarSenha: 'http://localhost:8080/recuperarSenha'
     },
     empresa: {
       url: 'http://localhost:8080/empresa'
@@ -20,7 +21,7 @@ export const environment = {
       editar: 'http://localhost:8080/editarUsuario',
       whoami: 'http://localhost:8080/whoami',
       pesquisaUsuario: 'http://localhost:8080/pesquisaUsuario',
-      trocaSenha: 'http://localhost:8080/trocar-senha'
+      trocaSenha: 'http://localhost:8080/trocarSenha'
     },
     reembolso: {
       editar: 'http://localhost:8080/editarReembolso',
