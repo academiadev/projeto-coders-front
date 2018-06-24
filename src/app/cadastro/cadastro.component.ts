@@ -17,14 +17,18 @@ export class CadastroComponent implements OnInit {
 
   cadastroForm: FormGroup;
   login: any;
+  emailCadastrado: Boolean = false;
+  empresaInexistente: Boolean = false;
+  empresaCadastrada: Boolean = false;
+  usuarioCadastrado: Boolean = false;
 
   constructor(private cadastroService: CadastroService,
-              private route: ActivatedRoute,
               private router: Router,
               private jwtHelper: JwtHelperService,
               private usuarioService: UsuarioService) { }
 
   onSubmit(form: any) {
+    this.resetaVerificacoes();
     this.cadastroService.cadastrarUsuario(form).subscribe((token: TokenDTO) => {
       localStorage.setItem(environment.tokenName, token.accessToken);
       const decodedToken = this.jwtHelper.decodeToken(token.accessToken);
@@ -34,7 +38,42 @@ export class CadastroComponent implements OnInit {
       this.router.navigate(['/']);
     },
     (e) => {
-      console.log(e.error);
+      console.log(e.error.exception);
+      if (e.error.exception.indexOf('UsuarioExistenteException') >= 0) {
+        console.log('UsuarioExistenteException');
+        this.usuarioCadastrado = true;
+      }
+      if (e.error.exception.indexOf('EmpresaExistenteException') >= 0) {
+        console.log('EmpresaExistenteException');
+        this.empresaCadastrada = true;
+      }
+      if (e.error.exception.indexOf('EmpresaNaoEncontradaException') >= 0) {
+        console.log('EmpresaNaoEncontradaException');
+        this.empresaInexistente = true;
+      }
+      if (e.error.exception.indexOf('EmailJaCadastradoException') >= 0) {
+        console.log('EmailJaCadastradoException');
+        this.emailCadastrado = true;
+      }
+    });
+  }
+
+  resetaVerificacoes() {
+    this.usuarioCadastrado = false;
+    this.empresaCadastrada = false;
+    this.emailCadastrado = false;
+    this.empresaInexistente = false;
+  }
+
+  userSelected() {
+    this.cadastroForm.patchValue({
+      nomeEmpresa: ''
+    });
+  }
+
+  adminSelected() {
+    this.cadastroForm.patchValue({
+      codigoEmpresa: ''
     });
   }
 

@@ -35,13 +35,13 @@
       <!--Radio buttons-->
       <p>
         <label>
-          <input class="with-gap" formControlName="tipo" type="radio" id="admin" value="admin" [checked]=true/>
+          <input class="with-gap" (click)="adminSelected()" formControlName="tipo" type="radio" id="admin" value="admin" [checked]=true/>
           <label for="admin">Criar uma nova empresa (Admin)</label>
         </label>
       </p>
       <p>
         <label>
-          <input class="with-gap" formControlName="tipo" type="radio" id="user" value="user"/>
+          <input class="with-gap" (click)="userSelected()" formControlName="tipo" type="radio" id="user" value="user"/>
           <label for="user">Inserir código existente</label>
         </label>
       </p>
@@ -60,6 +60,18 @@
            formControlName="nomeEmpresa">
           <label for="codigo">Nome da Empresa</label>
         </div>
+      </div>
+      <div class="alert-message" *ngIf="usuarioCadastrado">
+        <p>Usuário já cadastrado</p>
+      </div>
+      <div class="alert-message" *ngIf="empresaCadastrada">
+        <p>Empresa já cadastrada</p>
+      </div>
+      <div class="alert-message" *ngIf="empresaInexistente">
+        <p>Empresa não encontrada</p>
+      </div>
+      <div class="alert-message" *ngIf="emailCadastrado">
+        <p>E-mail já cadastrado</p>
       </div>
       <div class="button-login">
         <button class="btn btn-lg btn-primary btn-block" type="submit">CADASTRAR</button>
