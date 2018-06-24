@@ -6,6 +6,7 @@ export const environment = {
     auth: {
       login: 'https://powerful-retreat-98533.herokuapp.com/login',
       refresh: 'https://powerful-retreat-98533.herokuapp.com/refresh',
+      recuperarSenha: 'https://powerful-retreat-98533.herokuapp.com/recuperarSenha'
     },
     empresa: {
       url: 'https://powerful-retreat-98533.herokuapp.com/empresa'

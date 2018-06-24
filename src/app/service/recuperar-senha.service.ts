@@ -13,7 +13,7 @@ export class RecuperarSenhaService extends DataService {
 
   /**
    *
-   * @url http://localhost:8080/forgotPasswordForm
+   * @url http://localhost:8080/recuperarSenha
    */
   recuperar(form: EsqueceuSenhaDTO): Observable<any> {
     return this.http.post(environment.urls.auth.recuperarSenha, form, this.getHeaders());

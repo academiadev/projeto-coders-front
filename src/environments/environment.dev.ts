@@ -6,6 +6,7 @@ export const environment = {
     auth: {
       login: 'http://localhost:8080/login',
       refresh: 'http://localhost:8080/refresh',
+      recuperarSenha: 'http://localhost:8080/recuperarSenha'
     },
     empresa: {
       url: 'http://localhost:8080/empresa'
