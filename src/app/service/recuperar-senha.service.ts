@@ -16,8 +16,6 @@ export class RecuperarSenhaService extends DataService {
    * @url http://localhost:8080/forgotPasswordForm
    */
   recuperar(form: EsqueceuSenhaDTO): Observable<any> {
-    console.log(form);
-    console.log('OI');
     return this.http.post(environment.urls.auth.recuperarSenha, form, this.getHeaders());
   }
 }

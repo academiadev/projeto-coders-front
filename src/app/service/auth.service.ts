@@ -38,7 +38,6 @@ export class AuthService extends DataService {
 
   logout() {
     localStorage.removeItem(environment.tokenName);
-    console.log('Usuário deslogado');
   }
 
   logoutAndRedirect() {
@@ -64,7 +63,6 @@ export class AuthService extends DataService {
       const decodedToken = this.jwtHelper.decodeToken(token);
       this.usuarioService.usuario = decodedToken.usuario;
     }
-    console.log('Usuário está logado: ' + !isExpired);
     return !isExpired;
   }
 

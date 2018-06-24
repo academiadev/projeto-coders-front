@@ -60,8 +60,6 @@ export class DashboardUsuarioComponent implements OnInit {
   }
 
   openModalEdit(reembo: any) {
-    console.log('OPENMODALEDIT');
-    console.log(reembo);
     if (reembo.status === 'waiting') {
       this.reembolsoSelecionado = reembo;
       const arrayPath = reembo.arquivoPath.split('\\');
@@ -92,11 +90,9 @@ export class DashboardUsuarioComponent implements OnInit {
 
   adicionaReembolso() {
     this.reembolsoService.adicionarArquivo(this.fileSelected).subscribe(res => {
-      console.log(res.path);
       this.dashBoardUserForm.patchValue({
         arquivoPath: res.path
       });
-      console.log(this.dashBoardUserForm.value);
       this.reembolsoService.adicionaReembolso(this.dashBoardUserForm.value).subscribe(resp => {
         this.buscarReembolsos();
       });
@@ -115,7 +111,6 @@ export class DashboardUsuarioComponent implements OnInit {
 
   editarReembolso() {
     if (this.fileSelected) {
-      console.log(this.fileSelected);
       this.reembolsoService.adicionarArquivo(this.fileSelected).subscribe(res => {
         this.dashBoardUserForm.patchValue({
           arquivoPath: res.path

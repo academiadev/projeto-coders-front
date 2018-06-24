@@ -35,9 +35,7 @@ export class PerfilComponent implements OnInit {
   onSubmit(form: any) {
     this.ataualizaPerfilService.atualiza(form).subscribe((token: TokenDTO) => {
       localStorage.setItem(environment.tokenName, token.accessToken);
-      console.log(token.accessToken);
       const decodedToken = this.jwtHelper.decodeToken(token.accessToken);
-      console.log(decodedToken);
 
       this.usuarioService.usuario = decodedToken.usuario;
       /* Ao atualizar o email o token se perde e invalida a sessão */

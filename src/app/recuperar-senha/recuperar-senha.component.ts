@@ -3,6 +3,7 @@ import { RecuperarSenhaService } from '../service/recuperar-senha.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
 import { Router } from '@angular/router';
+import { toast } from 'angular2-materialize';
 
 @Component({
   selector: 'ca-recuperar-senha',
@@ -18,9 +19,9 @@ export class RecuperarSenhaComponent implements OnInit {
 
   onSubmit(form: any) {
     this.recupararService.recuperar(form).subscribe((res) => {
-      console.log(res);
+      toast('E-mail enviado!', 2000, 'rounded');
+      this.router.navigate(['/login']);
     });
-    // this.router.navigate(['/emailEnviado']);
   }
 
   ngOnInit() {

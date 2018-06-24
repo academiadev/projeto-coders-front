@@ -20,9 +20,7 @@ export class AtualizaPerfilService extends DataService {
    * @url http://localhost:8080/editarUsuario
    */
   atualiza(usuarioEditado: UsuarioDTO): Observable<any> {
-    console.log(usuarioEditado);
     usuarioEditado.id = this.usuarioService.usuario.id;
-    console.log(this.usuarioService.usuario);
     return this.http.post(environment.urls.usuario.editar, usuarioEditado, this.getHeaders());
   }
 }

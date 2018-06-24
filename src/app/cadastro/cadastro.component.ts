@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CadastroService } from '../service/cadastro.service';
-import { AuthService } from './../service/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../validators/inputs.validators';
-import { UsuarioDTO } from '../dto/usuario-dto';
+import { TokenDTO } from '../dto/token-dto';
+import { environment } from './../../environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UsuarioService } from '../service/usuario.service';
 
 @Component({
   selector: 'ca-cadastro',
@@ -16,11 +19,19 @@ export class CadastroComponent implements OnInit {
   login: any;
 
   constructor(private cadastroService: CadastroService,
-              private authService: AuthService) { }
+              private route: ActivatedRoute,
+              private router: Router,
+              private jwtHelper: JwtHelperService,
+              private usuarioService: UsuarioService) { }
 
   onSubmit(form: any) {
-    this.cadastroService.cadastrarUsuario(form).subscribe((usuario: UsuarioDTO) => {
-      console.log(usuario);
+    this.cadastroService.cadastrarUsuario(form).subscribe((token: TokenDTO) => {
+      localStorage.setItem(environment.tokenName, token.accessToken);
+      const decodedToken = this.jwtHelper.decodeToken(token.accessToken);
+
+      this.usuarioService.usuario = decodedToken.usuario;
+
+      this.router.navigate(['/']);
     },
     (e) => {
       console.log(e.error);

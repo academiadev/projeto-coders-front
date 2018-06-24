@@ -18,12 +18,18 @@ export class RedefinirSenhaService extends DataService {
    * @url http://localhost:8080/trocar-senha
    */
   redefinir(senha: string): Observable<any> {
-    console.log(senha);
-
     const param: ParamValue[] = [
       { key: 'newPassword', value: senha }
     ];
     
     return this.http.post(environment.urls.usuario.trocaSenha, {}, this.getHeadersParams(param));
+  }
+
+  redefinirComToken(senha: string, token: string): Observable<any> {
+    const param: ParamValue[] = [
+      { key: 'newPassword', value: senha }
+    ];
+    
+    return this.http.post(environment.urls.usuario.trocaSenha, {}, this.getHeadersParamsToken(param, token));
   }
 }
